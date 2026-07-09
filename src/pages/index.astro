@@ -16,6 +16,21 @@
 		<!-- ANIMATED GRID BACKGROUND (covers entire page) -->
 		<div class="grid-bg" aria-hidden="true"></div>
 
+		<!-- PAGE-WIDE STARFIELD (fixed, behind everything) -->
+		<div class="page-stars page-stars-sm" aria-hidden="true"></div>
+		<div class="page-stars page-stars-md" aria-hidden="true"></div>
+		<div class="page-stars page-stars-lg" aria-hidden="true"></div>
+
+		<!-- PAGE-WIDE SHOOTING STARS -->
+		<div class="page-shoot ps-1" aria-hidden="true"></div>
+		<div class="page-shoot ps-2" aria-hidden="true"></div>
+		<div class="page-shoot ps-3" aria-hidden="true"></div>
+		<div class="page-shoot ps-4" aria-hidden="true"></div>
+		<div class="page-shoot ps-5" aria-hidden="true"></div>
+		<div class="page-shoot ps-6" aria-hidden="true"></div>
+		<div class="page-shoot ps-7" aria-hidden="true"></div>
+		<div class="page-shoot ps-8" aria-hidden="true"></div>
+
 		<!-- NAV -->
 		<nav class="nav">
 			<div class="nav-inner">
@@ -40,10 +55,7 @@
 		     SECTION 1 — HERO
 		     ═══════════════════════════════════════════ -->
 		<section class="hero">
-			<!-- GALAXY BACKGROUND LAYERS -->
-			<div class="stars stars-sm" aria-hidden="true"></div>
-			<div class="stars stars-md" aria-hidden="true"></div>
-			<div class="stars stars-lg" aria-hidden="true"></div>
+			<!-- HERO-SPECIFIC GALAXY LAYERS -->
 			<div class="bright-star bs-1"></div>
 			<div class="bright-star bs-2"></div>
 			<div class="bright-star bs-3"></div>
@@ -53,9 +65,6 @@
 			<div class="nebula neb-1" aria-hidden="true"></div>
 			<div class="nebula neb-2" aria-hidden="true"></div>
 			<div class="nebula neb-3" aria-hidden="true"></div>
-			<div class="shooting-star ss-1" aria-hidden="true"></div>
-			<div class="shooting-star ss-2" aria-hidden="true"></div>
-			<div class="shooting-star ss-3" aria-hidden="true"></div>
 			<div class="cosmic-dust" aria-hidden="true"></div>
 
 			<!-- Floating orbs -->
@@ -80,7 +89,7 @@
 				<h1 class="hero-h1 anim-rise" style="--d:0s">BECOME A <span class="glow-gold">MONEY MAGNET</span></h1>
 				<h1 class="hero-h1 hero-h1-offset anim-rise" style="--d:.12s">AND <span class="glow-orange">BUILD YOUR FUTURE</span></h1>
 				<h1 class="hero-h1 hero-h1-accent anim-rise" style="--d:.24s">WITH <span class="glow-purple">CLUB FLE</span></h1>
-				<p class="hero-sub anim-rise" style="--d:.4s">The all-in-one financial literacy platform for kids, teens, and families.</p>
+				<p class="hero-sub anim-rise" style="--d:.4s">The all-in-one financial literacy platform for every age — kids, teens, parents, and adults building real money skills together.</p>
 				<div class="hero-btns anim-rise" style="--d:.55s">
 					<a href="#cta" class="btn-grad">Join the Movement</a>
 					<a href="#features" class="btn-outline">Explore Features</a>
@@ -363,18 +372,15 @@
 	   GALAXY / STARFIELD
 	   ═══════════════════════════════════════════════ */
 
-	/* --- Layer 1: Starfield (3 depth layers) --- */
-	.stars{
-		position:absolute;inset:0;pointer-events:none;
-		border-radius:50%;
+	/* --- Page-wide starfield (fixed, covers entire viewport) --- */
+	.page-stars{
+		position:fixed;inset:0;pointer-events:none;z-index:0;
 	}
 
-	/* Small stars – 1px, ~110 points */
-	.stars-sm{
-		z-index:0;
+	/* Small stars – 1px, ~120 points */
+	.page-stars-sm{
 		animation:twinkle-slow 3s ease-in-out infinite alternate;
 		box-shadow:
-			/* white */
 			42px 38px 0 0.5px rgba(255,255,255,.75),
 			187px 92px 0 0.5px rgba(255,255,255,.8),
 			310px 24px 0 0.5px rgba(255,255,255,.65),
@@ -427,6 +433,48 @@
 			1015px 700px 0 0.5px rgba(255,255,255,.8),
 			1150px 745px 0 0.5px rgba(255,255,255,.7),
 			1280px 720px 0 0.5px rgba(255,255,255,.75),
+			/* doubled — second wave offset */
+			112px 68px 0 0.5px rgba(255,255,255,.7),
+			267px 142px 0 0.5px rgba(255,255,255,.65),
+			408px 18px 0 0.5px rgba(255,255,255,.8),
+			555px 195px 0 0.5px rgba(255,255,255,.7),
+			14px 112px 0 0.5px rgba(255,255,255,.75),
+			720px 38px 0 0.5px rgba(255,255,255,.6),
+			848px 155px 0 0.5px rgba(255,255,255,.8),
+			988px 82px 0 0.5px rgba(255,255,255,.65),
+			1118px 200px 0 0.5px rgba(255,255,255,.75),
+			1248px 48px 0 0.5px rgba(255,255,255,.8),
+			1355px 175px 0 0.5px rgba(255,255,255,.7),
+			145px 260px 0 0.5px rgba(255,255,255,.65),
+			305px 315px 0 0.5px rgba(255,255,255,.8),
+			440px 245px 0 0.5px rgba(255,255,255,.7),
+			560px 340px 0 0.5px rgba(255,255,255,.85),
+			695px 290px 0 0.5px rgba(255,255,255,.6),
+			830px 370px 0 0.5px rgba(255,255,255,.75),
+			950px 300px 0 0.5px rgba(255,255,255,.7),
+			1085px 355px 0 0.5px rgba(255,255,255,.8),
+			1215px 268px 0 0.5px rgba(255,255,255,.65),
+			1340px 340px 0 0.5px rgba(255,255,255,.7),
+			22px 398px 0 0.5px rgba(255,255,255,.8),
+			160px 470px 0 0.5px rgba(255,255,255,.65),
+			298px 415px 0 0.5px rgba(255,255,255,.7),
+			435px 500px 0 0.5px rgba(255,255,255,.85),
+			575px 445px 0 0.5px rgba(255,255,255,.6),
+			710px 520px 0 0.5px rgba(255,255,255,.75),
+			845px 440px 0 0.5px rgba(255,255,255,.8),
+			980px 510px 0 0.5px rgba(255,255,255,.7),
+			1110px 455px 0 0.5px rgba(255,255,255,.65),
+			1245px 530px 0 0.5px rgba(255,255,255,.8),
+			35px 545px 0 0.5px rgba(255,255,255,.7),
+			175px 610px 0 0.5px rgba(255,255,255,.75),
+			315px 558px 0 0.5px rgba(255,255,255,.65),
+			455px 630px 0 0.5px rgba(255,255,255,.8),
+			595px 575px 0 0.5px rgba(255,255,255,.7),
+			730px 640px 0 0.5px rgba(255,255,255,.85),
+			865px 590px 0 0.5px rgba(255,255,255,.6),
+			1000px 650px 0 0.5px rgba(255,255,255,.75),
+			1135px 580px 0 0.5px rgba(255,255,255,.8),
+			1268px 655px 0 0.5px rgba(255,255,255,.65),
 			/* gold-tinted (~15%) */
 			130px 155px 0 0.5px rgba(255,210,63,.55),
 			580px 182px 0 0.5px rgba(255,210,63,.5),
@@ -436,18 +484,27 @@
 			1200px 330px 0 0.5px rgba(255,210,63,.5),
 			440px 640px 0 0.5px rgba(255,210,63,.6),
 			975px 670px 0 0.5px rgba(255,210,63,.5),
+			68px 490px 0 0.5px rgba(255,210,63,.55),
+			750px 140px 0 0.5px rgba(255,210,63,.5),
+			1320px 410px 0 0.5px rgba(255,210,63,.6),
+			400px 310px 0 0.5px rgba(255,210,63,.5),
+			920px 610px 0 0.5px rgba(255,210,63,.55),
+			215px 735px 0 0.5px rgba(255,210,63,.5),
 			/* lavender-tinted (~10%) */
 			260px 190px 0 0.5px rgba(155,89,240,.45),
 			710px 140px 0 0.5px rgba(155,89,240,.5),
 			415px 520px 0 0.5px rgba(155,89,240,.45),
 			1100px 480px 0 0.5px rgba(155,89,240,.5),
 			650px 710px 0 0.5px rgba(155,89,240,.45),
-			155px 620px 0 0.5px rgba(155,89,240,.5);
+			155px 620px 0 0.5px rgba(155,89,240,.5),
+			850px 48px 0 0.5px rgba(155,89,240,.45),
+			1240px 560px 0 0.5px rgba(155,89,240,.5),
+			330px 85px 0 0.5px rgba(155,89,240,.45),
+			530px 440px 0 0.5px rgba(155,89,240,.5);
 	}
 
-	/* Medium stars – 1.5px, ~70 points */
-	.stars-md{
-		z-index:0;
+	/* Medium stars – 1.5px, ~90 points */
+	.page-stars-md{
 		animation:twinkle-med 5s ease-in-out infinite alternate;
 		box-shadow:
 			95px 65px 0 0.75px rgba(255,255,255,.8),
@@ -490,22 +547,51 @@
 			910px 740px 0 0.75px rgba(255,255,255,.75),
 			1070px 695px 0 0.75px rgba(255,255,255,.7),
 			1230px 745px 0 0.75px rgba(255,255,255,.8),
+			/* doubled — second wave */
+			145px 35px 0 0.75px rgba(255,255,255,.75),
+			365px 98px 0 0.75px rgba(255,255,255,.7),
+			535px 12px 0 0.75px rgba(255,255,255,.8),
+			728px 128px 0 0.75px rgba(255,255,255,.7),
+			898px 45px 0 0.75px rgba(255,255,255,.75),
+			1060px 165px 0 0.75px rgba(255,255,255,.8),
+			1228px 72px 0 0.75px rgba(255,255,255,.65),
+			1355px 198px 0 0.75px rgba(255,255,255,.75),
+			28px 235px 0 0.75px rgba(255,255,255,.7),
+			168px 355px 0 0.75px rgba(255,255,255,.8),
+			312px 285px 0 0.75px rgba(255,255,255,.75),
+			478px 375px 0 0.75px rgba(255,255,255,.65),
+			625px 305px 0 0.75px rgba(255,255,255,.8),
+			788px 395px 0 0.75px rgba(255,255,255,.7),
+			945px 290px 0 0.75px rgba(255,255,255,.8),
+			1105px 385px 0 0.75px rgba(255,255,255,.75),
+			12px 475px 0 0.75px rgba(255,255,255,.7),
+			178px 510px 0 0.75px rgba(255,255,255,.8),
+			348px 445px 0 0.75px rgba(255,255,255,.75),
+			508px 525px 0 0.75px rgba(255,255,255,.65),
+			660px 470px 0 0.75px rgba(255,255,255,.8),
+			828px 540px 0 0.75px rgba(255,255,255,.7),
+			985px 485px 0 0.75px rgba(255,255,255,.85),
+			1148px 545px 0 0.75px rgba(255,255,255,.7),
 			/* gold */
 			155px 150px 0 0.75px rgba(255,210,63,.55),
 			740px 320px 0 0.75px rgba(255,210,63,.5),
 			1100px 560px 0 0.75px rgba(255,210,63,.55),
 			330px 680px 0 0.75px rgba(255,210,63,.5),
 			960px 140px 0 0.75px rgba(255,210,63,.6),
+			48px 395px 0 0.75px rgba(255,210,63,.5),
+			1295px 480px 0 0.75px rgba(255,210,63,.55),
+			555px 715px 0 0.75px rgba(255,210,63,.5),
 			/* lavender */
 			480px 200px 0 0.75px rgba(155,89,240,.45),
 			860px 490px 0 0.75px rgba(155,89,240,.5),
 			190px 520px 0 0.75px rgba(155,89,240,.45),
-			1220px 380px 0 0.75px rgba(155,89,240,.5);
+			1220px 380px 0 0.75px rgba(155,89,240,.5),
+			710px 610px 0 0.75px rgba(155,89,240,.45),
+			350px 110px 0 0.75px rgba(155,89,240,.5);
 	}
 
-	/* Large stars – 2.5px, ~35 points */
-	.stars-lg{
-		z-index:0;
+	/* Large stars – 2.5px, ~60 points */
+	.page-stars-lg{
 		animation:twinkle-fast 7s ease-in-out infinite alternate;
 		box-shadow:
 			120px 95px 0 1.25px rgba(255,255,255,.85),
@@ -534,15 +620,44 @@
 			470px 710px 0 1.25px rgba(255,255,255,.7),
 			730px 760px 0 1.25px rgba(255,255,255,.85),
 			970px 725px 0 1.25px rgba(255,255,255,.75),
+			/* doubled — second wave */
+			55px 58px 0 1.25px rgba(255,255,255,.8),
+			270px 115px 0 1.25px rgba(255,255,255,.7),
+			485px 68px 0 1.25px rgba(255,255,255,.85),
+			715px 175px 0 1.25px rgba(255,255,255,.75),
+			945px 52px 0 1.25px rgba(255,255,255,.8),
+			1155px 148px 0 1.25px rgba(255,255,255,.7),
+			1350px 95px 0 1.25px rgba(255,255,255,.85),
+			80px 248px 0 1.25px rgba(255,255,255,.75),
+			305px 365px 0 1.25px rgba(255,255,255,.8),
+			530px 305px 0 1.25px rgba(255,255,255,.7),
+			760px 390px 0 1.25px rgba(255,255,255,.85),
+			985px 320px 0 1.25px rgba(255,255,255,.75),
+			1210px 410px 0 1.25px rgba(255,255,255,.8),
+			185px 480px 0 1.25px rgba(255,255,255,.7),
+			435px 545px 0 1.25px rgba(255,255,255,.85),
+			680px 485px 0 1.25px rgba(255,255,255,.75),
+			905px 555px 0 1.25px rgba(255,255,255,.8),
+			1140px 510px 0 1.25px rgba(255,255,255,.7),
+			48px 660px 0 1.25px rgba(255,255,255,.85),
+			290px 715px 0 1.25px rgba(255,255,255,.75),
+			545px 665px 0 1.25px rgba(255,255,255,.8),
+			790px 740px 0 1.25px rgba(255,255,255,.7),
+			1040px 690px 0 1.25px rgba(255,255,255,.85),
 			/* gold */
 			510px 170px 0 1.25px rgba(255,210,63,.6),
 			940px 440px 0 1.25px rgba(255,210,63,.55),
 			260px 560px 0 1.25px rgba(255,210,63,.6),
 			1180px 680px 0 1.25px rgba(255,210,63,.55),
+			148px 410px 0 1.25px rgba(255,210,63,.6),
+			830px 230px 0 1.25px rgba(255,210,63,.55),
 			/* lavender */
 			700px 350px 0 1.25px rgba(155,89,240,.5),
 			1050px 200px 0 1.25px rgba(155,89,240,.45),
-			350px 710px 0 1.25px rgba(155,89,240,.5);
+			350px 710px 0 1.25px rgba(155,89,240,.5),
+			15px 175px 0 1.25px rgba(155,89,240,.45),
+			1280px 320px 0 1.25px rgba(155,89,240,.5),
+			580px 545px 0 1.25px rgba(155,89,240,.45);
 	}
 
 	/* --- Bright focal stars with radial glow --- */
@@ -581,22 +696,36 @@
 	.neb-3{
 		width:700px;height:700px;z-index:1;
 		top:20%;left:25%;
-		background:radial-gradient(circle, rgba(74,14,143,.10) 0%, transparent 65%);
+		background:radial-gradient(circle, rgba(74,14,143,.06) 0%, transparent 65%);
 		filter:blur(120px);
 		animation:neb-breathe 40s ease-in-out infinite;
 	}
 
-	/* --- Layer 3: Shooting stars --- */
-	.shooting-star{
-		position:absolute;pointer-events:none;z-index:2;
+	/* --- Page-wide shooting stars (8 total, bidirectional) --- */
+	.page-shoot{
+		position:fixed;pointer-events:none;z-index:1;
 		width:0;height:1px;
-		background:linear-gradient(90deg, rgba(255,255,255,.8), rgba(255,210,63,.3), transparent);
 		opacity:0;
+	}
+	/* Left-to-right (upper-left to lower-right) */
+	.ps-1,.ps-2,.ps-3,.ps-4{
+		background:linear-gradient(90deg, rgba(255,255,255,.85), rgba(255,210,63,.3), transparent);
 		transform:rotate(-35deg);
 	}
-	.ss-1{top:18%;left:15%;animation:shoot 0.8s linear 2s infinite;animation-delay:2s}
-	.ss-2{top:35%;left:55%;animation:shoot 0.8s linear 10s infinite;animation-delay:10s}
-	.ss-3{top:60%;left:30%;animation:shoot 0.8s linear 18s infinite;animation-delay:18s}
+	/* Right-to-left (upper-right to lower-left) */
+	.ps-5,.ps-6,.ps-7,.ps-8{
+		background:linear-gradient(270deg, rgba(255,255,255,.85), rgba(255,210,63,.3), transparent);
+		transform:rotate(35deg);
+	}
+
+	.ps-1{top:12%;left:10%;animation:shoot-lr 0.8s linear 4s infinite}
+	.ps-2{top:35%;left:45%;animation:shoot-lr 0.8s linear 10s infinite}
+	.ps-3{top:58%;left:20%;animation:shoot-lr 0.8s linear 16s infinite}
+	.ps-4{top:82%;left:60%;animation:shoot-lr 0.8s linear 22s infinite}
+	.ps-5{top:20%;right:15%;animation:shoot-rl 0.8s linear 7s infinite}
+	.ps-6{top:45%;right:40%;animation:shoot-rl 0.8s linear 13s infinite}
+	.ps-7{top:68%;right:10%;animation:shoot-rl 0.8s linear 19s infinite}
+	.ps-8{top:90%;right:55%;animation:shoot-rl 0.8s linear 25s infinite}
 
 	/* --- Layer 4: Cosmic dust grain --- */
 	.cosmic-dust{
@@ -609,52 +738,7 @@
 		opacity:0.04;
 	}
 
-	/* --- Star continuation into following sections --- */
-	.why::before,
-	.branches::before{
-		content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
-		animation:twinkle-slow 3s ease-in-out infinite alternate;
-	}
-	.why::before{
-		opacity:0.5;
-		box-shadow:
-			90px 80px 0 0.5px rgba(255,255,255,.6),
-			310px 45px 0 0.5px rgba(255,255,255,.55),
-			520px 130px 0 0.5px rgba(255,255,255,.5),
-			750px 60px 0 0.5px rgba(255,255,255,.6),
-			980px 110px 0 0.5px rgba(255,255,255,.5),
-			1150px 75px 0 0.5px rgba(255,255,255,.55),
-			160px 220px 0 0.5px rgba(255,255,255,.45),
-			430px 280px 0 0.5px rgba(255,255,255,.5),
-			670px 240px 0 0.5px rgba(255,255,255,.55),
-			890px 300px 0 0.5px rgba(255,255,255,.45),
-			1080px 260px 0 0.5px rgba(255,255,255,.5),
-			55px 380px 0 0.5px rgba(255,255,255,.4),
-			340px 410px 0 0.5px rgba(255,255,255,.45),
-			580px 370px 0 0.5px rgba(255,255,255,.4),
-			820px 430px 0 0.5px rgba(255,255,255,.35),
-			1200px 390px 0 0.5px rgba(255,255,255,.4),
-			200px 155px 0 0.5px rgba(255,210,63,.35),
-			700px 310px 0 0.5px rgba(255,210,63,.3),
-			1050px 180px 0 0.5px rgba(155,89,240,.3);
-	}
-	.branches::before{
-		opacity:0.3;
-		box-shadow:
-			120px 60px 0 0.5px rgba(255,255,255,.5),
-			380px 110px 0 0.5px rgba(255,255,255,.45),
-			640px 50px 0 0.5px rgba(255,255,255,.5),
-			900px 130px 0 0.5px rgba(255,255,255,.4),
-			1130px 80px 0 0.5px rgba(255,255,255,.45),
-			210px 250px 0 0.5px rgba(255,255,255,.35),
-			500px 200px 0 0.5px rgba(255,255,255,.4),
-			770px 270px 0 0.5px rgba(255,255,255,.35),
-			1020px 220px 0 0.5px rgba(255,255,255,.3),
-			70px 370px 0 0.5px rgba(255,255,255,.25),
-			440px 340px 0 0.5px rgba(255,255,255,.3),
-			830px 380px 0 0.5px rgba(255,255,255,.25),
-			1180px 350px 0 0.5px rgba(255,255,255,.2);
-	}
+	/* Stars are now page-wide fixed elements — no per-section continuations needed */
 
 	/* ═══════════════════════════════════════════════
 	   KEYFRAMES
@@ -689,11 +773,17 @@
 		0%,100%{transform:scale(0.9)}
 		50%{transform:scale(1.1)}
 	}
-	@keyframes shoot{
+	@keyframes shoot-lr{
 		0%{width:0;opacity:0;transform:rotate(-35deg) translateX(0)}
-		10%{opacity:1;width:120px}
-		50%{opacity:.6;width:140px}
-		100%{opacity:0;width:0;transform:rotate(-35deg) translateX(300px)}
+		10%{opacity:1;width:130px}
+		50%{opacity:.5;width:150px}
+		100%{opacity:0;width:0;transform:rotate(-35deg) translateX(320px)}
+	}
+	@keyframes shoot-rl{
+		0%{width:0;opacity:0;transform:rotate(35deg) translateX(0)}
+		10%{opacity:1;width:130px}
+		50%{opacity:.5;width:150px}
+		100%{opacity:0;width:0;transform:rotate(35deg) translateX(-320px)}
 	}
 
 	/* Existing keyframes */
@@ -933,9 +1023,9 @@
 
 	/* Orbs */
 	.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:3}
-	.orb-1{width:600px;height:600px;background:radial-gradient(circle,rgba(123,47,242,.3),transparent 70%);top:-15%;right:-10%;animation:orb-float-1 16s ease-in-out infinite}
-	.orb-2{width:420px;height:420px;background:radial-gradient(circle,rgba(255,107,53,.25),transparent 70%);bottom:0;left:-8%;animation:orb-float-2 13s ease-in-out infinite}
-	.orb-3{width:300px;height:300px;background:radial-gradient(circle,rgba(255,210,63,.18),transparent 70%);top:35%;left:45%;animation:orb-float-3 18s ease-in-out infinite}
+	.orb-1{width:600px;height:600px;background:radial-gradient(circle,rgba(123,47,242,.18),transparent 70%);top:-15%;right:-10%;animation:orb-float-1 16s ease-in-out infinite}
+	.orb-2{width:420px;height:420px;background:radial-gradient(circle,rgba(255,107,53,.14),transparent 70%);bottom:0;left:-8%;animation:orb-float-2 13s ease-in-out infinite}
+	.orb-3{width:300px;height:300px;background:radial-gradient(circle,rgba(255,210,63,.08),transparent 70%);top:35%;left:45%;animation:orb-float-3 18s ease-in-out infinite}
 	.orb-4{width:200px;height:200px;background:radial-gradient(circle,rgba(123,47,242,.2),transparent 70%);bottom:20%;right:15%;animation:orb-float-2 14s ease-in-out infinite reverse}
 	.orb-5{width:260px;height:260px;background:radial-gradient(circle,rgba(255,107,53,.15),transparent 70%);top:10%;left:20%;animation:orb-float-1 20s ease-in-out infinite reverse}
 
@@ -945,7 +1035,7 @@
 		font-size:clamp(2.8rem,8vw,6rem);
 		font-weight:900;line-height:1;letter-spacing:-3px;
 		color:#fff;margin-bottom:0;
-		text-shadow:0 0 80px rgba(123,47,242,.3);
+		text-shadow:0 0 60px rgba(123,47,242,.15);
 	}
 	.hero-h1-offset{padding-left:clamp(1rem,5vw,4rem)}
 	.hero-h1-accent{padding-right:clamp(1rem,5vw,4rem);margin-bottom:32px}
@@ -955,15 +1045,15 @@
 	}
 	.glow-gold{
 		background-image:linear-gradient(135deg,#FFD23F,#F5C842);
-		filter:drop-shadow(0 0 24px rgba(255,210,63,.4)) drop-shadow(0 0 56px rgba(255,210,63,.18));
+		filter:drop-shadow(0 0 18px rgba(255,210,63,.3)) drop-shadow(0 0 40px rgba(255,210,63,.1));
 	}
 	.glow-orange{
 		background-image:linear-gradient(135deg,#FF6B35,#E8734A);
-		filter:drop-shadow(0 0 24px rgba(255,107,53,.4)) drop-shadow(0 0 56px rgba(255,107,53,.18));
+		filter:drop-shadow(0 0 18px rgba(255,107,53,.3)) drop-shadow(0 0 40px rgba(255,107,53,.1));
 	}
 	.glow-purple{
 		background-image:linear-gradient(135deg,#7B2FF2,#9B59F0);
-		filter:drop-shadow(0 0 24px rgba(123,47,242,.4)) drop-shadow(0 0 56px rgba(123,47,242,.18));
+		filter:drop-shadow(0 0 18px rgba(123,47,242,.3)) drop-shadow(0 0 40px rgba(123,47,242,.1));
 	}
 
 	.hero-sub{
@@ -1197,66 +1287,60 @@
 	}
 
 	@media(max-width:768px){
-		/* Galaxy: reduce to ~60 stars total, kill extras */
-		.stars-sm{
+		/* Galaxy: reduce stars on mobile */
+		.page-stars-sm{
 			box-shadow:
 				42px 38px 0 0.5px rgba(255,255,255,.75),
+				187px 92px 0 0.5px rgba(255,255,255,.8),
 				310px 24px 0 0.5px rgba(255,255,255,.65),
-				520px 62px 0 0.5px rgba(255,255,255,.85),
-				680px 88px 0 0.5px rgba(255,255,255,.6),
 				85px 320px 0 0.5px rgba(255,255,255,.65),
+				230px 280px 0 0.5px rgba(255,255,255,.8),
 				375px 350px 0 0.5px rgba(255,255,255,.7),
-				620px 365px 0 0.5px rgba(255,255,255,.6),
 				55px 455px 0 0.5px rgba(255,255,255,.8),
+				198px 420px 0 0.5px rgba(255,255,255,.65),
 				340px 480px 0 0.5px rgba(255,255,255,.7),
-				615px 505px 0 0.5px rgba(255,255,255,.6),
 				72px 580px 0 0.5px rgba(255,255,255,.7),
+				210px 555px 0 0.5px rgba(255,255,255,.75),
 				350px 610px 0 0.5px rgba(255,255,255,.65),
-				630px 625px 0 0.5px rgba(255,255,255,.7),
 				48px 710px 0 0.5px rgba(255,255,255,.7),
+				185px 680px 0 0.5px rgba(255,255,255,.8),
 				325px 740px 0 0.5px rgba(255,255,255,.65),
-				600px 750px 0 0.5px rgba(255,255,255,.7),
 				130px 155px 0 0.5px rgba(255,210,63,.55),
-				290px 410px 0 0.5px rgba(255,210,63,.5),
 				260px 190px 0 0.5px rgba(155,89,240,.45);
 		}
-		.stars-md{
+		.page-stars-md{
 			box-shadow:
 				95px 65px 0 0.75px rgba(255,255,255,.8),
-				440px 48px 0 0.75px rgba(255,255,255,.85),
+				285px 120px 0 0.75px rgba(255,255,255,.7),
 				60px 265px 0 0.75px rgba(255,255,255,.7),
+				215px 310px 0 0.75px rgba(255,255,255,.85),
 				380px 250px 0 0.75px rgba(255,255,255,.75),
-				690px 270px 0 0.75px rgba(255,255,255,.8),
 				75px 430px 0 0.75px rgba(255,255,255,.7),
-				405px 395px 0 0.75px rgba(255,255,255,.75),
+				240px 460px 0 0.75px rgba(255,255,255,.8),
 				50px 555px 0 0.75px rgba(255,255,255,.7),
+				200px 580px 0 0.75px rgba(255,255,255,.8),
 				360px 540px 0 0.75px rgba(255,255,255,.65),
-				670px 560px 0 0.75px rgba(255,255,255,.8),
 				80px 690px 0 0.75px rgba(255,255,255,.75),
-				420px 670px 0 0.75px rgba(255,255,255,.7),
-				155px 150px 0 0.75px rgba(255,210,63,.55),
-				480px 200px 0 0.75px rgba(155,89,240,.45);
+				250px 720px 0 0.75px rgba(255,255,255,.8),
+				155px 150px 0 0.75px rgba(255,210,63,.55);
 		}
-		.stars-lg{
+		.page-stars-lg{
 			box-shadow:
 				120px 95px 0 1.25px rgba(255,255,255,.85),
-				590px 140px 0 1.25px rgba(255,255,255,.8),
+				380px 55px 0 1.25px rgba(255,255,255,.75),
 				165px 290px 0 1.25px rgba(255,255,255,.8),
-				650px 280px 0 1.25px rgba(255,255,255,.85),
 				90px 440px 0 1.25px rgba(255,255,255,.7),
-				570px 430px 0 1.25px rgba(255,255,255,.75),
+				330px 490px 0 1.25px rgba(255,255,255,.85),
 				140px 600px 0 1.25px rgba(255,255,255,.75),
-				620px 590px 0 1.25px rgba(255,255,255,.7),
 				210px 730px 0 1.25px rgba(255,255,255,.8),
-				510px 170px 0 1.25px rgba(255,210,63,.6),
-				700px 350px 0 1.25px rgba(155,89,240,.5);
+				260px 560px 0 1.25px rgba(255,210,63,.6),
+				350px 350px 0 1.25px rgba(155,89,240,.5);
 		}
-		.shooting-star{display:none}
+		.page-shoot{display:none}
 		.cosmic-dust{display:none}
 		.neb-2,.neb-3{display:none}
 		.neb-1{animation:none}
 		.bs-3,.bs-4,.bs-5{display:none}
-		.why::before,.branches::before{opacity:.15}
 
 		.nav-links{
 			position:fixed;inset:0;z-index:200;
