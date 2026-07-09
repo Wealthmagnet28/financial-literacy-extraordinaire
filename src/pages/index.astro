@@ -6,12 +6,880 @@
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<meta name="description" content="Club FLE — the all-in-one financial literacy platform for kids, teens, and families. Master your money. Build your future." />
+		<title>Club FLE — Financial Literacy Extraordinaire</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+
+		<!-- ANIMATED GRID BACKGROUND (covers entire page) -->
+		<div class="grid-bg" aria-hidden="true"></div>
+
+		<!-- NAV -->
+		<nav class="nav">
+			<div class="nav-inner">
+				<a href="/" class="logo">
+					<span class="logo-icon">$</span>
+					<span class="logo-word">Club FLE</span>
+				</a>
+				<div class="nav-links" id="navLinks">
+					<a href="#">Home</a>
+					<a href="#why">About</a>
+					<a href="#features">Features</a>
+					<a href="#faq">Contact</a>
+					<a href="#cta" class="nav-btn">Get Started</a>
+				</div>
+				<button class="burger" id="burger" aria-label="Menu">
+					<span></span><span></span><span></span>
+				</button>
+			</div>
+		</nav>
+
+		<!-- ═══════════════════════════════════════════
+		     SECTION 1 — HERO
+		     ═══════════════════════════════════════════ -->
+		<section class="hero">
+			<!-- Floating orbs -->
+			<div class="orb orb-1"></div>
+			<div class="orb orb-2"></div>
+			<div class="orb orb-3"></div>
+			<div class="orb orb-4"></div>
+			<div class="orb orb-5"></div>
+
+			<!-- Diagonal money-flow lines -->
+			<div class="flow-line fl-1"></div>
+			<div class="flow-line fl-2"></div>
+			<div class="flow-line fl-3"></div>
+
+			<!-- Drifting background words -->
+			<div class="drift-word dw-1" aria-hidden="true">BUILD</div>
+			<div class="drift-word dw-2" aria-hidden="true">WEALTH</div>
+			<div class="drift-word dw-3" aria-hidden="true">GROW</div>
+			<div class="drift-word dw-4" aria-hidden="true">ACHIEVE</div>
+
+			<div class="hero-content">
+				<h1 class="hero-h1 anim-rise" style="--d:0s">BECOME A <span class="glow-gold">MONEY MAGNET</span></h1>
+				<h1 class="hero-h1 hero-h1-offset anim-rise" style="--d:.12s">AND <span class="glow-orange">BUILD YOUR FUTURE</span></h1>
+				<h1 class="hero-h1 hero-h1-accent anim-rise" style="--d:.24s">WITH <span class="glow-purple">CLUB FLE</span></h1>
+				<p class="hero-sub anim-rise" style="--d:.4s">The all-in-one financial literacy platform for kids, teens, and families.</p>
+				<div class="hero-btns anim-rise" style="--d:.55s">
+					<a href="#cta" class="btn-grad">Join the Movement</a>
+					<a href="#features" class="btn-outline">Explore Features</a>
+				</div>
+			</div>
+
+			<!-- Stats bar -->
+			<div class="stats-bar anim-rise" style="--d:.7s">
+				<div class="stat-item"><span class="stat-val">4</span><span class="stat-lbl">Branches</span></div>
+				<div class="stat-sep"></div>
+				<div class="stat-item"><span class="stat-val">15</span><span class="stat-lbl">Phases</span></div>
+				<div class="stat-sep"></div>
+				<div class="stat-item"><span class="stat-val">All Ages</span><span class="stat-lbl">K — College</span></div>
+				<div class="stat-sep"></div>
+				<div class="stat-item"><span class="stat-val">$0</span><span class="stat-lbl">Cost to Start</span></div>
+			</div>
+		</section>
+
+		<!-- ═══════════════════════════════════════════
+		     SECTION 2 — WHY CLUB FLE
+		     ═══════════════════════════════════════════ -->
+		<section class="why" id="why">
+			<div class="drift-word dw-bg-1" aria-hidden="true">LEVEL UP</div>
+			<div class="container">
+				<h2 class="sec-title fade-up">Why Club FLE?</h2>
+				<div class="why-grid">
+					<div class="glass-card fade-up" style="--d:.05s">
+						<span class="gc-emoji">&#x1F4A1;</span>
+						<h3>Learn Before You Earn</h3>
+						<p>Most kids graduate without understanding credit, budgeting, or investing. We fix that — with tools they actually want to use.</p>
+					</div>
+					<div class="glass-card fade-up" style="--d:.15s">
+						<span class="gc-emoji">&#x1F680;</span>
+						<h3>Real Tools, Not Worksheets</h3>
+						<p>Interactive budget trackers, AI coaching, and investing simulators that engage kids the way a game does — but teach skills that last a lifetime.</p>
+					</div>
+					<div class="glass-card fade-up" style="--d:.25s">
+						<span class="gc-emoji">&#x1F468;&#x200D;&#x1F469;&#x200D;&#x1F467;&#x200D;&#x1F466;</span>
+						<h3>Families Build Together</h3>
+						<p>Parents and kids set goals, manage allowances, and grow wealth as a team. One dashboard, one mission, one family working together.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ═══════════════════════════════════════════
+		     SECTION 3 — THE 4 BRANCHES
+		     ═══════════════════════════════════════════ -->
+		<section class="branches" id="branches">
+			<div class="drift-word dw-bg-2" aria-hidden="true">BUILD</div>
+			<div class="container">
+				<p class="sec-eyebrow fade-up">Our Branches</p>
+				<h2 class="sec-title fade-up">Four Paths. One Mission.</h2>
+				<div class="branch-grid">
+					<div class="branch-card bc-purple fade-up" style="--d:.05s">
+						<span class="bc-emoji">&#x1F9E0;</span>
+						<h3>Personal</h3>
+						<p>Kids learn budgeting, saving, and smart spending through interactive tools and AI coaching. Track progress, earn badges, and build real financial habits.</p>
+					</div>
+					<div class="branch-card bc-orange fade-up" style="--d:.12s">
+						<span class="bc-emoji">&#x1F468;&#x200D;&#x1F469;&#x200D;&#x1F467;&#x200D;&#x1F466;</span>
+						<h3>Family</h3>
+						<p>Parents and kids manage allowances, set shared savings goals, and build wealth together. A family dashboard keeps everyone aligned.</p>
+					</div>
+					<div class="branch-card bc-gold fade-up" style="--d:.19s">
+						<span class="bc-emoji">&#x1F3EB;</span>
+						<h3>School</h3>
+						<p>Turnkey classroom curriculum that makes financial literacy engaging for every teacher and irresistible for students. Standards-aligned, zero prep headaches.</p>
+					</div>
+					<div class="branch-card bc-coral fade-up" style="--d:.26s">
+						<span class="bc-emoji">&#x1F393;</span>
+						<h3>College &amp; Business</h3>
+						<p>College funding pathways, entrepreneurship tools, and real-world investing simulators. Teens build business plans and practice portfolios.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ═══════════════════════════════════════════
+		     SECTION 4 — FEATURES
+		     ═══════════════════════════════════════════ -->
+		<section class="features" id="features">
+			<!-- floating particle dots -->
+			<div class="particle p1"></div>
+			<div class="particle p2"></div>
+			<div class="particle p3"></div>
+			<div class="particle p4"></div>
+			<div class="particle p5"></div>
+			<div class="particle p6"></div>
+			<div class="particle p7"></div>
+			<div class="particle p8"></div>
+
+			<div class="container">
+				<p class="sec-eyebrow fade-up">Platform Features</p>
+				<h2 class="sec-title fade-up">Tools That Make Money<br/>Make Sense</h2>
+				<div class="feat-grid">
+					<div class="feat-block fb-purple fade-up" style="--d:.05s">
+						<div class="fb-icon">&#x1F4B0;</div>
+						<div><h3>Budget Tracker</h3><p>See where every dollar goes with visual breakdowns kids actually understand.</p></div>
+					</div>
+					<div class="feat-block fb-orange fade-up" style="--d:.1s">
+						<div class="fb-icon">&#x1F3AF;</div>
+						<div><h3>Goal Setting &amp; Rewards</h3><p>Set savings goals and earn achievements along the way. Every milestone counts.</p></div>
+					</div>
+					<div class="feat-block fb-gold fade-up" style="--d:.15s">
+						<div class="fb-icon">&#x1F916;</div>
+						<div><h3>AI Money Coach</h3><p>Get personalized financial guidance powered by AI — friendly, smart, always available.</p></div>
+					</div>
+					<div class="feat-block fb-purple fade-up" style="--d:.2s">
+						<div class="fb-icon">&#x1F441;</div>
+						<div><h3>Parent Dashboard</h3><p>Monitor progress and guide your kids from one place. Real-time, no guesswork.</p></div>
+					</div>
+					<div class="feat-block fb-orange fade-up" style="--d:.25s">
+						<div class="fb-icon">&#x1F4C8;</div>
+						<div><h3>Investing Simulator</h3><p>Practice real market strategies with zero risk. Compound interest clicks when you see it grow.</p></div>
+					</div>
+					<div class="feat-block fb-gold fade-up" style="--d:.3s">
+						<div class="fb-icon">&#x1F91D;</div>
+						<div><h3>Peer Business Showcase</h3><p>Kids pitch ideas and promote each other's businesses. Entrepreneurship starts here.</p></div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ═══════════════════════════════════════════
+		     SECTION 5 — MOTIVATIONAL QUOTE
+		     ═══════════════════════════════════════════ -->
+		<section class="quote-strip">
+			<div class="drift-word dw-q1" aria-hidden="true">GROW</div>
+			<div class="drift-word dw-q2" aria-hidden="true">INVEST</div>
+			<div class="drift-word dw-q3" aria-hidden="true">CREATE</div>
+			<div class="container">
+				<div class="quote-inner fade-up">
+					<blockquote>&ldquo;Every child deserves to understand money before they need it.&rdquo;</blockquote>
+					<div class="gold-line"></div>
+					<p class="quote-attr">The Club FLE Mission</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- ═══════════════════════════════════════════
+		     SECTION 6 — FAQ
+		     ═══════════════════════════════════════════ -->
+		<section class="faq" id="faq">
+			<div class="container">
+				<p class="sec-eyebrow fade-up">FAQ</p>
+				<h2 class="sec-title fade-up">Got Questions?</h2>
+				<div class="faq-list fade-up">
+
+					<div class="faq-item">
+						<input type="checkbox" id="fq1" class="faq-toggle" />
+						<label for="fq1" class="faq-q">What ages is Club FLE for?<span class="faq-chevron"></span></label>
+						<div class="faq-a"><p>All ages — from elementary school kids just learning about coins and bills, through teens managing their first paychecks, to college students planning tuition and launching businesses.</p></div>
+					</div>
+
+					<div class="faq-item">
+						<input type="checkbox" id="fq2" class="faq-toggle" />
+						<label for="fq2" class="faq-q">Is it free?<span class="faq-chevron"></span></label>
+						<div class="faq-a"><p>The core platform is completely free to start. We believe every kid should have access to financial education regardless of their family's income.</p></div>
+					</div>
+
+					<div class="faq-item">
+						<input type="checkbox" id="fq3" class="faq-toggle" />
+						<label for="fq3" class="faq-q">Can schools use this?<span class="faq-chevron"></span></label>
+						<div class="faq-a"><p>Absolutely. Our School branch includes a full standards-aligned classroom curriculum with lesson plans, student activities, and progress tracking — ready to deploy with zero prep time.</p></div>
+					</div>
+
+					<div class="faq-item">
+						<input type="checkbox" id="fq4" class="faq-toggle" />
+						<label for="fq4" class="faq-q">Is real money involved?<span class="faq-chevron"></span></label>
+						<div class="faq-a"><p>No real funds are ever at risk. The investing simulator uses practice money so kids can learn market strategies, compound interest, and diversification without any financial exposure.</p></div>
+					</div>
+
+					<div class="faq-item">
+						<input type="checkbox" id="fq5" class="faq-toggle" />
+						<label for="fq5" class="faq-q">How do families use it together?<span class="faq-chevron"></span></label>
+						<div class="faq-a"><p>Parents connect their accounts and set up allowance tracking, shared savings goals, and real-time progress monitoring. The family dashboard keeps everyone on the same page.</p></div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+
+		<!-- ═══════════════════════════════════════════
+		     SECTION 7 — FINAL CTA
+		     ═══════════════════════════════════════════ -->
+		<section class="final-cta" id="cta">
+			<div class="container">
+				<div class="cta-inner fade-up">
+					<h2>Ready to Build the Next Generation of Wealth Builders?</h2>
+					<p>Join thousands of families, teachers, and students already mastering money.</p>
+					<a href="#" class="btn-white">Join Club FLE</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- ═══════════════════════════════════════════
+		     SECTION 8 — FOOTER
+		     ═══════════════════════════════════════════ -->
+		<footer class="footer">
+			<div class="container">
+				<p class="footer-copy">&copy; 2026 Financial Literacy Extraordinaire. All rights reserved.</p>
+				<div class="footer-links">
+					<a href="#">About</a>
+					<span class="footer-dot"></span>
+					<a href="#">Features</a>
+					<span class="footer-dot"></span>
+					<a href="#">Contact</a>
+				</div>
+				<p class="footer-tagline">Club FLE — Master Your Money. Build Your Future.</p>
+			</div>
+		</footer>
+
+		<!-- Scroll observer + mobile menu (minimal JS) -->
+		<script>
+			const io = new IntersectionObserver((entries) => {
+				entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
+			}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+			document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+			document.getElementById('burger')?.addEventListener('click', () => {
+				document.getElementById('navLinks')?.classList.toggle('open');
+			});
+		</script>
+
 	</body>
 </html>
+
+<style>
+	/* ═══════════════════════════════════════════════
+	   CSS CUSTOM PROPERTIES
+	   ═══════════════════════════════════════════════ */
+	:root {
+		--bg:        #0A0A12;
+		--bg-alt:    #110A20;
+		--purple:    #7B2FF2;
+		--purple-lt: #9B59F0;
+		--orange:    #FF6B35;
+		--orange-dk: #E8734A;
+		--gold:      #FFD23F;
+		--gold-dk:   #F5C842;
+		--coral:     #E8734A;
+		--white:     #FFFFFF;
+		--gray:      #A0A0B8;
+		--text:      #E8E8F0;
+		--glass:     rgba(255,255,255,0.04);
+		--glass-b:   rgba(255,255,255,0.08);
+		--radius:    16px;
+		--radius-lg: 24px;
+		--font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+	}
+
+	/* ═══════════════════════════════════════════════
+	   RESET
+	   ═══════════════════════════════════════════════ */
+	*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+	html{scroll-behavior:smooth}
+	body{font-family:var(--font);color:var(--text);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+	a{text-decoration:none;color:inherit}
+	img{max-width:100%;display:block}
+	.container{max-width:1160px;margin:0 auto;padding:0 24px}
+
+	/* ═══════════════════════════════════════════════
+	   ANIMATED GRID BACKGROUND
+	   ═══════════════════════════════════════════════ */
+	.grid-bg{
+		position:fixed;inset:0;z-index:0;pointer-events:none;
+		background-image:
+			linear-gradient(rgba(123,47,242,0.04) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(123,47,242,0.04) 1px, transparent 1px);
+		background-size:60px 60px;
+		animation:grid-shift 20s linear infinite;
+	}
+	@keyframes grid-shift{
+		0%{background-position:0 0}
+		100%{background-position:60px 60px}
+	}
+
+	/* ═══════════════════════════════════════════════
+	   KEYFRAMES
+	   ═══════════════════════════════════════════════ */
+	@keyframes orb-float-1{
+		0%,100%{transform:translate(0,0) scale(1)}
+		25%{transform:translate(60px,-40px) scale(1.08)}
+		50%{transform:translate(-20px,50px) scale(0.95)}
+		75%{transform:translate(40px,20px) scale(1.04)}
+	}
+	@keyframes orb-float-2{
+		0%,100%{transform:translate(0,0) scale(1)}
+		30%{transform:translate(-70px,30px) scale(1.1)}
+		60%{transform:translate(30px,-60px) scale(0.92)}
+	}
+	@keyframes orb-float-3{
+		0%,100%{transform:translate(0,0)}
+		50%{transform:translate(50px,40px) scale(1.06)}
+	}
+	@keyframes drift-left{
+		0%{transform:translateX(5vw)}
+		100%{transform:translateX(-5vw)}
+	}
+	@keyframes drift-right{
+		0%{transform:translateX(-5vw)}
+		100%{transform:translateX(5vw)}
+	}
+	@keyframes flow-diag{
+		0%{transform:translateY(100%) translateX(-30%);opacity:0}
+		20%{opacity:0.15}
+		80%{opacity:0.15}
+		100%{transform:translateY(-100%) translateX(30%);opacity:0}
+	}
+	@keyframes shimmer-text{
+		0%{background-position:-200% center}
+		100%{background-position:200% center}
+	}
+	@keyframes pulse-soft{
+		0%,100%{box-shadow:0 0 24px rgba(123,47,242,0.35),0 0 60px rgba(255,107,53,0.12)}
+		50%{box-shadow:0 0 36px rgba(123,47,242,0.55),0 0 80px rgba(255,107,53,0.2)}
+	}
+	@keyframes gold-glow{
+		0%,100%{box-shadow:0 0 12px var(--gold);opacity:.85}
+		50%{box-shadow:0 0 28px var(--gold);opacity:1}
+	}
+	@keyframes rise{
+		0%{opacity:0;transform:translateY(50px)}
+		100%{opacity:1;transform:translateY(0)}
+	}
+	@keyframes float-particle{
+		0%,100%{transform:translateY(0) translateX(0);opacity:.25}
+		50%{transform:translateY(-30px) translateX(15px);opacity:.5}
+	}
+	@keyframes scroll-hint{
+		0%,100%{transform:translateY(0);opacity:1}
+		50%{transform:translateY(10px);opacity:.3}
+	}
+
+	/* ═══════════════════════════════════════════════
+	   SCROLL-TRIGGERED FADE-UP
+	   ═══════════════════════════════════════════════ */
+	.fade-up{
+		opacity:0;
+		transform:translateY(44px);
+		transition:opacity .7s cubic-bezier(.22,1,.36,1) var(--d,.05s),
+		           transform .7s cubic-bezier(.22,1,.36,1) var(--d,.05s);
+	}
+	.fade-up.in-view{opacity:1;transform:translateY(0)}
+
+	/* Hero uses its own entrance anim so it fires without observer */
+	.anim-rise{
+		opacity:0;
+		animation:rise .9s cubic-bezier(.22,1,.36,1) forwards;
+		animation-delay:var(--d,0s);
+	}
+
+	/* ═══════════════════════════════════════════════
+	   DRIFTING BACKGROUND WORDS
+	   ═══════════════════════════════════════════════ */
+	.drift-word{
+		position:absolute;
+		font-size:clamp(5rem,14vw,12rem);
+		font-weight:900;
+		text-transform:uppercase;
+		color:rgba(255,255,255,0.018);
+		letter-spacing:8px;
+		white-space:nowrap;
+		pointer-events:none;
+		user-select:none;
+		z-index:0;
+	}
+	.dw-1{top:12%;left:5%;animation:drift-left 25s ease-in-out infinite alternate}
+	.dw-2{top:40%;right:0;animation:drift-right 30s ease-in-out infinite alternate}
+	.dw-3{bottom:22%;left:10%;animation:drift-left 22s ease-in-out infinite alternate}
+	.dw-4{bottom:8%;right:5%;animation:drift-right 28s ease-in-out infinite alternate}
+	.dw-bg-1{top:10%;right:0;font-size:clamp(4rem,11vw,9rem);animation:drift-right 26s ease-in-out infinite alternate}
+	.dw-bg-2{top:8%;left:-2%;font-size:clamp(4rem,11vw,9rem);animation:drift-left 24s ease-in-out infinite alternate}
+	.dw-q1{top:15%;left:0;font-size:clamp(3rem,10vw,8rem);animation:drift-left 20s ease-in-out infinite alternate}
+	.dw-q2{bottom:20%;right:-2%;font-size:clamp(3rem,10vw,8rem);animation:drift-right 22s ease-in-out infinite alternate}
+	.dw-q3{top:55%;left:30%;font-size:clamp(3rem,8vw,7rem);animation:drift-left 26s ease-in-out infinite alternate}
+
+	/* ═══════════════════════════════════════════════
+	   DIAGONAL FLOW LINES
+	   ═══════════════════════════════════════════════ */
+	.flow-line{
+		position:absolute;
+		width:2px;
+		height:200px;
+		background:linear-gradient(180deg,transparent,var(--purple),transparent);
+		opacity:0;
+		pointer-events:none;
+		transform:rotate(25deg);
+	}
+	.fl-1{left:20%;top:0;animation:flow-diag 8s linear infinite}
+	.fl-2{left:55%;top:0;animation:flow-diag 10s linear 3s infinite;height:160px;background:linear-gradient(180deg,transparent,var(--orange),transparent)}
+	.fl-3{left:80%;top:0;animation:flow-diag 12s linear 6s infinite;height:180px;background:linear-gradient(180deg,transparent,var(--gold),transparent)}
+
+	/* ═══════════════════════════════════════════════
+	   FLOATING PARTICLES
+	   ═══════════════════════════════════════════════ */
+	.particle{
+		position:absolute;
+		width:3px;height:3px;
+		border-radius:50%;
+		background:var(--purple-lt);
+		pointer-events:none;
+		opacity:.2;
+	}
+	.p1{top:10%;left:12%;animation:float-particle 6s ease-in-out infinite}
+	.p2{top:25%;left:78%;animation:float-particle 7s ease-in-out 1s infinite;background:var(--orange)}
+	.p3{top:45%;left:35%;animation:float-particle 5s ease-in-out .5s infinite;background:var(--gold)}
+	.p4{top:60%;left:65%;animation:float-particle 8s ease-in-out 2s infinite}
+	.p5{top:75%;left:20%;animation:float-particle 6.5s ease-in-out 1.5s infinite;background:var(--orange)}
+	.p6{top:15%;left:50%;animation:float-particle 7s ease-in-out 3s infinite;background:var(--gold)}
+	.p7{top:85%;left:82%;animation:float-particle 5.5s ease-in-out .8s infinite}
+	.p8{top:40%;left:8%;animation:float-particle 9s ease-in-out 2.5s infinite;background:var(--orange)}
+
+	/* ═══════════════════════════════════════════════
+	   NAV
+	   ═══════════════════════════════════════════════ */
+	.nav{
+		position:fixed;top:0;left:0;right:0;z-index:200;
+		background:rgba(10,10,18,0.65);
+		backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+		border-bottom:1px solid rgba(123,47,242,0.1);
+	}
+	.nav-inner{
+		max-width:1160px;margin:0 auto;padding:0 24px;
+		display:flex;align-items:center;justify-content:space-between;
+		height:72px;
+	}
+	.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.2rem;z-index:201}
+	.logo-icon{
+		display:inline-flex;align-items:center;justify-content:center;
+		width:38px;height:38px;
+		background:linear-gradient(135deg,var(--purple),var(--orange));
+		border-radius:11px;font-weight:900;font-size:1.1rem;color:#fff;
+	}
+	.logo-word{color:#fff;letter-spacing:-.3px}
+
+	.nav-links{display:flex;align-items:center;gap:32px;font-size:.925rem;font-weight:500}
+	.nav-links a{color:rgba(255,255,255,.6);transition:color .25s}
+	.nav-links a:hover{color:#fff}
+	.nav-btn{
+		background:linear-gradient(135deg,var(--purple),var(--orange));
+		color:#fff!important;padding:10px 24px;border-radius:10px;font-weight:700;
+		transition:transform .3s,box-shadow .3s;
+		box-shadow:0 0 18px rgba(123,47,242,0.3);
+	}
+	.nav-btn:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 0 30px rgba(123,47,242,.5)}
+
+	.burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:201}
+	.burger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px}
+
+	/* ═══════════════════════════════════════════════
+	   BUTTONS (global)
+	   ═══════════════════════════════════════════════ */
+	.btn-grad{
+		display:inline-flex;align-items:center;justify-content:center;
+		padding:16px 40px;font-size:1.05rem;font-weight:700;border-radius:14px;
+		background:linear-gradient(135deg,var(--purple),var(--orange));
+		color:#fff;border:none;cursor:pointer;
+		transition:transform .3s,box-shadow .3s;
+		animation:pulse-soft 3.5s ease-in-out infinite;
+	}
+	.btn-grad:hover{
+		transform:translateY(-3px) scale(1.05);
+		box-shadow:0 0 44px rgba(255,107,53,.5),0 0 90px rgba(123,47,242,.2);
+	}
+
+	.btn-outline{
+		display:inline-flex;align-items:center;justify-content:center;
+		padding:16px 40px;font-size:1.05rem;font-weight:600;border-radius:14px;
+		background:transparent;color:#fff;
+		border:1.5px solid rgba(255,255,255,.2);
+		backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+		cursor:pointer;transition:all .3s;
+	}
+	.btn-outline:hover{
+		background:var(--purple);border-color:var(--purple);
+		transform:translateY(-3px) scale(1.05);
+		box-shadow:0 0 30px rgba(123,47,242,.35);
+	}
+
+	.btn-white{
+		display:inline-flex;align-items:center;justify-content:center;
+		padding:20px 52px;font-size:1.15rem;font-weight:700;border-radius:16px;
+		background:#fff;color:var(--bg);border:none;cursor:pointer;
+		transition:transform .3s,box-shadow .3s;
+		box-shadow:0 0 30px rgba(123,47,242,.25);
+	}
+	.btn-white:hover{
+		transform:translateY(-3px) scale(1.05);
+		box-shadow:0 0 50px rgba(123,47,242,.45),0 0 80px rgba(255,107,53,.15);
+	}
+
+	/* ═══════════════════════════════════════════════
+	   SECTION TYPOGRAPHY
+	   ═══════════════════════════════════════════════ */
+	.sec-eyebrow{
+		text-align:center;font-size:.8rem;font-weight:700;
+		text-transform:uppercase;letter-spacing:3px;color:var(--orange);margin-bottom:14px;
+	}
+	.sec-title{
+		text-align:center;font-size:clamp(2rem,4.5vw,3.1rem);font-weight:800;
+		color:#fff;margin-bottom:60px;letter-spacing:-1px;line-height:1.12;
+	}
+
+	/* ═══════════════════════════════════════════════
+	   HERO
+	   ═══════════════════════════════════════════════ */
+	.hero{
+		position:relative;min-height:100vh;min-height:100svh;
+		display:flex;flex-direction:column;align-items:center;justify-content:center;
+		overflow:hidden;z-index:1;
+		background:linear-gradient(170deg,#0A0A12 0%,#120a28 35%,#1a0e3a 65%,#0f0820 100%);
+	}
+
+	/* Orbs */
+	.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
+	.orb-1{width:600px;height:600px;background:radial-gradient(circle,rgba(123,47,242,.3),transparent 70%);top:-15%;right:-10%;animation:orb-float-1 16s ease-in-out infinite}
+	.orb-2{width:420px;height:420px;background:radial-gradient(circle,rgba(255,107,53,.25),transparent 70%);bottom:0;left:-8%;animation:orb-float-2 13s ease-in-out infinite}
+	.orb-3{width:300px;height:300px;background:radial-gradient(circle,rgba(255,210,63,.18),transparent 70%);top:35%;left:45%;animation:orb-float-3 18s ease-in-out infinite}
+	.orb-4{width:200px;height:200px;background:radial-gradient(circle,rgba(123,47,242,.2),transparent 70%);bottom:20%;right:15%;animation:orb-float-2 14s ease-in-out infinite reverse}
+	.orb-5{width:260px;height:260px;background:radial-gradient(circle,rgba(255,107,53,.15),transparent 70%);top:10%;left:20%;animation:orb-float-1 20s ease-in-out infinite reverse}
+
+	.hero-content{position:relative;z-index:2;text-align:center;max-width:920px;padding:0 24px}
+
+	.hero-h1{
+		font-size:clamp(2.8rem,8vw,6rem);
+		font-weight:900;line-height:1;letter-spacing:-3px;
+		color:#fff;margin-bottom:0;
+		text-shadow:0 0 80px rgba(123,47,242,.3);
+	}
+	.hero-h1-offset{padding-left:clamp(1rem,5vw,4rem)}
+	.hero-h1-accent{padding-right:clamp(1rem,5vw,4rem);margin-bottom:32px}
+
+	.glow-gold,.glow-orange,.glow-purple{
+		-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+	}
+	.glow-gold{
+		background-image:linear-gradient(135deg,#FFD23F,#F5C842);
+		filter:drop-shadow(0 0 24px rgba(255,210,63,.4)) drop-shadow(0 0 56px rgba(255,210,63,.18));
+	}
+	.glow-orange{
+		background-image:linear-gradient(135deg,#FF6B35,#E8734A);
+		filter:drop-shadow(0 0 24px rgba(255,107,53,.4)) drop-shadow(0 0 56px rgba(255,107,53,.18));
+	}
+	.glow-purple{
+		background-image:linear-gradient(135deg,#7B2FF2,#9B59F0);
+		filter:drop-shadow(0 0 24px rgba(123,47,242,.4)) drop-shadow(0 0 56px rgba(123,47,242,.18));
+	}
+
+	.hero-sub{
+		font-size:clamp(1rem,2vw,1.25rem);color:var(--gray);
+		max-width:580px;margin:0 auto 44px;line-height:1.7;
+	}
+	.hero-btns{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+
+	/* Stats bar */
+	.stats-bar{
+		position:absolute;bottom:0;left:0;right:0;z-index:3;
+		display:flex;align-items:center;justify-content:center;gap:0;
+		background:rgba(10,10,18,.6);
+		backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+		border-top:1px solid rgba(123,47,242,.1);
+		padding:18px 24px;flex-wrap:wrap;
+	}
+	.stat-item{display:flex;flex-direction:column;align-items:center;padding:0 clamp(16px,3vw,40px)}
+	.stat-val{font-size:1.15rem;font-weight:800;color:#fff}
+	.stat-lbl{font-size:.7rem;color:var(--gray);text-transform:uppercase;letter-spacing:1.5px;margin-top:2px}
+	.stat-sep{width:1px;height:32px;background:rgba(255,255,255,.08)}
+
+	/* ═══════════════════════════════════════════════
+	   WHY CLUB FLE
+	   ═══════════════════════════════════════════════ */
+	.why{
+		position:relative;z-index:1;
+		padding:120px 0;overflow:hidden;
+		background:linear-gradient(180deg,var(--bg) 0%,var(--bg-alt) 100%);
+	}
+	.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+
+	.glass-card{
+		background:var(--glass);
+		backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+		border:1px solid rgba(123,47,242,.12);
+		border-radius:var(--radius-lg);
+		padding:40px 32px;
+		transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s,border-color .35s,background .35s;
+	}
+	.glass-card:hover{
+		transform:translateY(-8px);
+		background:rgba(255,255,255,.06);
+		border-color:rgba(123,47,242,.35);
+		box-shadow:0 20px 60px rgba(123,47,242,.15),0 0 40px rgba(255,107,53,.08);
+	}
+	.gc-emoji{display:block;font-size:2.6rem;margin-bottom:20px}
+	.glass-card h3{font-size:1.25rem;font-weight:700;color:#fff;margin-bottom:12px}
+	.glass-card p{font-size:.93rem;color:rgba(255,255,255,.55);line-height:1.7}
+
+	/* ═══════════════════════════════════════════════
+	   BRANCHES
+	   ═══════════════════════════════════════════════ */
+	.branches{
+		position:relative;z-index:1;padding:120px 0;overflow:hidden;
+		background:linear-gradient(180deg,var(--bg-alt) 0%,#1a0c38 30%,#2a1050 60%,#1f0a30 100%);
+	}
+	.branch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+
+	.branch-card{
+		background:var(--glass);
+		backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+		border:1px solid rgba(255,255,255,.06);
+		border-radius:var(--radius-lg);
+		padding:36px 28px 32px;
+		border-top:3px solid transparent;
+		transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s,border-color .35s;
+	}
+	.bc-purple{border-top-color:var(--purple)}
+	.bc-orange{border-top-color:var(--orange)}
+	.bc-gold{border-top-color:var(--gold)}
+	.bc-coral{border-top-color:var(--coral)}
+
+	.branch-card:hover{
+		transform:translateY(-8px);
+		box-shadow:0 20px 60px rgba(123,47,242,.12);
+		border-color:rgba(255,255,255,.12);
+	}
+	.bc-purple:hover{box-shadow:0 20px 60px rgba(123,47,242,.2),0 0 30px rgba(123,47,242,.1)}
+	.bc-orange:hover{box-shadow:0 20px 60px rgba(255,107,53,.2),0 0 30px rgba(255,107,53,.1)}
+	.bc-gold:hover{box-shadow:0 20px 60px rgba(255,210,63,.15),0 0 30px rgba(255,210,63,.08)}
+	.bc-coral:hover{box-shadow:0 20px 60px rgba(232,115,74,.18),0 0 30px rgba(232,115,74,.1)}
+
+	.bc-emoji{display:block;font-size:2.4rem;margin-bottom:18px}
+	.branch-card h3{font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:10px}
+	.branch-card p{font-size:.9rem;color:rgba(255,255,255,.5);line-height:1.65}
+
+	/* ═══════════════════════════════════════════════
+	   FEATURES
+	   ═══════════════════════════════════════════════ */
+	.features{
+		position:relative;z-index:1;padding:120px 0;overflow:hidden;
+		background:linear-gradient(180deg,#1f0a30 0%,var(--bg-alt) 40%,var(--bg) 100%);
+	}
+	.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+
+	.feat-block{
+		display:flex;gap:20px;align-items:flex-start;
+		padding:32px 28px;
+		background:var(--glass);
+		border-radius:var(--radius);
+		border-left:3px solid transparent;
+		transition:transform .3s,box-shadow .3s,border-color .3s,background .3s;
+	}
+	.fb-purple{border-left-color:var(--purple)}
+	.fb-orange{border-left-color:var(--orange)}
+	.fb-gold{border-left-color:var(--gold)}
+
+	.feat-block:hover{
+		transform:translateY(-4px);
+		background:rgba(255,255,255,.06);
+	}
+	.fb-purple:hover{box-shadow:0 0 30px rgba(123,47,242,.15);border-left-color:var(--purple-lt)}
+	.fb-orange:hover{box-shadow:0 0 30px rgba(255,107,53,.15);border-left-color:#ff8555}
+	.fb-gold:hover{box-shadow:0 0 30px rgba(255,210,63,.12);border-left-color:#ffe066}
+
+	.fb-icon{
+		flex-shrink:0;width:52px;height:52px;
+		display:flex;align-items:center;justify-content:center;
+		background:linear-gradient(135deg,rgba(123,47,242,.15),rgba(255,107,53,.1));
+		border-radius:14px;font-size:1.5rem;
+	}
+	.feat-block h3{font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:6px}
+	.feat-block p{font-size:.9rem;color:rgba(255,255,255,.5);line-height:1.6}
+
+	/* ═══════════════════════════════════════════════
+	   QUOTE STRIP
+	   ═══════════════════════════════════════════════ */
+	.quote-strip{
+		position:relative;z-index:1;padding:130px 0;overflow:hidden;
+		background:linear-gradient(180deg,var(--bg) 0%,#130a28 50%,var(--bg) 100%);
+	}
+	.quote-inner{text-align:center;max-width:760px;margin:0 auto;position:relative}
+	.quote-inner blockquote{
+		font-size:clamp(1.4rem,3.5vw,2.2rem);font-weight:700;font-style:italic;
+		color:#fff;line-height:1.45;margin-bottom:36px;border:none;padding:0;
+	}
+	.gold-line{
+		width:80px;height:4px;margin:0 auto 20px;border-radius:2px;
+		background:linear-gradient(90deg,var(--gold),var(--orange));
+		animation:gold-glow 3s ease-in-out infinite;
+	}
+	.quote-attr{
+		font-size:.85rem;text-transform:uppercase;letter-spacing:3px;
+		color:rgba(255,210,63,.45);font-weight:700;
+	}
+
+	/* ═══════════════════════════════════════════════
+	   FAQ
+	   ═══════════════════════════════════════════════ */
+	.faq{
+		position:relative;z-index:1;padding:120px 0;
+		background:linear-gradient(180deg,var(--bg) 0%,var(--bg-alt) 100%);
+	}
+	.faq-list{max-width:740px;margin:0 auto;display:flex;flex-direction:column;gap:0}
+
+	.faq-item{border-bottom:1px solid rgba(255,255,255,.06)}
+	.faq-toggle{display:none}
+
+	.faq-q{
+		display:flex;align-items:center;justify-content:space-between;
+		padding:22px 0 22px 16px;
+		font-size:1.05rem;font-weight:600;color:#fff;
+		cursor:pointer;border-left:3px solid var(--purple);
+		transition:color .25s;
+		user-select:none;
+	}
+	.faq-q:hover{color:var(--purple-lt)}
+
+	.faq-chevron{
+		display:inline-block;width:10px;height:10px;
+		border-right:2px solid rgba(255,255,255,.4);
+		border-bottom:2px solid rgba(255,255,255,.4);
+		transform:rotate(45deg);
+		transition:transform .35s;
+		flex-shrink:0;margin-left:16px;
+	}
+
+	.faq-a{
+		max-height:0;overflow:hidden;
+		transition:max-height .45s cubic-bezier(.22,1,.36,1),padding .45s;
+		padding:0 0 0 19px;
+	}
+	.faq-a p{font-size:.93rem;color:rgba(255,255,255,.5);line-height:1.7;padding-bottom:20px}
+
+	.faq-toggle:checked ~ .faq-q .faq-chevron{transform:rotate(-135deg)}
+	.faq-toggle:checked ~ .faq-a{max-height:220px;padding-top:4px}
+
+	/* ═══════════════════════════════════════════════
+	   FINAL CTA
+	   ═══════════════════════════════════════════════ */
+	.final-cta{
+		position:relative;z-index:1;padding:120px 0;
+		background:linear-gradient(135deg,var(--purple) 0%,var(--orange) 50%,var(--gold) 100%);
+	}
+	.final-cta::before{
+		content:'';position:absolute;inset:0;
+		background:radial-gradient(ellipse at 25% 50%,rgba(255,255,255,.12),transparent 60%);
+		pointer-events:none;
+	}
+	.cta-inner{text-align:center;position:relative}
+	.cta-inner h2{
+		font-size:clamp(1.8rem,4.5vw,3rem);font-weight:900;color:#fff;
+		margin-bottom:16px;line-height:1.12;letter-spacing:-1px;
+		max-width:700px;margin-left:auto;margin-right:auto;
+		text-shadow:0 2px 20px rgba(0,0,0,.2);
+	}
+	.cta-inner p{font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:40px}
+
+	/* ═══════════════════════════════════════════════
+	   FOOTER
+	   ═══════════════════════════════════════════════ */
+	.footer{
+		position:relative;z-index:1;padding:48px 0;
+		background:var(--bg);
+		border-top:1px solid rgba(123,47,242,.08);
+		text-align:center;
+	}
+	.footer-copy{font-size:.85rem;color:rgba(255,255,255,.3);margin-bottom:16px}
+	.footer-links{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:16px}
+	.footer-links a{font-size:.85rem;color:rgba(255,255,255,.4);transition:color .25s}
+	.footer-links a:hover{color:var(--gold)}
+	.footer-dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.15)}
+	.footer-tagline{font-size:.75rem;color:rgba(255,255,255,.18);letter-spacing:.5px}
+
+	/* ═══════════════════════════════════════════════
+	   RESPONSIVE
+	   ═══════════════════════════════════════════════ */
+	@media(max-width:1024px){
+		.branch-grid{grid-template-columns:1fr 1fr}
+	}
+
+	@media(max-width:768px){
+		.nav-links{
+			position:fixed;inset:0;z-index:200;
+			background:rgba(10,10,18,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+			flex-direction:column;justify-content:center;gap:28px;
+			font-size:1.3rem;
+			opacity:0;pointer-events:none;transition:opacity .3s;
+		}
+		.nav-links.open{opacity:1;pointer-events:auto}
+		.burger{display:flex}
+
+		.hero-h1{font-size:clamp(2.2rem,9vw,3.4rem);letter-spacing:-2px}
+		.hero-h1-offset{padding-left:0}
+		.hero-h1-accent{padding-right:0}
+
+		.orb-1{width:350px;height:350px}
+		.orb-2{width:250px;height:250px}
+		.orb-3,.orb-4,.orb-5{display:none}
+
+		.why-grid{grid-template-columns:1fr;gap:16px}
+		.branch-grid{grid-template-columns:1fr;gap:16px}
+		.feat-grid{grid-template-columns:1fr}
+
+		.stat-sep{display:none}
+		.stats-bar{gap:12px}
+		.stat-item{padding:0 12px}
+
+		.why,.branches,.features,.faq,.quote-strip{padding:80px 0}
+		.final-cta{padding:80px 0}
+	}
+
+	@media(max-width:480px){
+		.hero-h1{font-size:2rem}
+		.hero-btns{flex-direction:column;align-items:center}
+		.btn-grad,.btn-outline{width:100%;max-width:300px}
+		.sec-title{font-size:1.6rem}
+		.stats-bar{flex-wrap:wrap;justify-content:center;gap:8px;padding:14px 12px}
+		.stat-item{padding:4px 12px}
+	}
+</style>
