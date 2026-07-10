@@ -491,6 +491,22 @@ Show alerts for:
         { "name": "timestamp", "type": "string", "description": "ISO 8601 datetime of completion" }
       ]
     }
+    },
+    {
+      "name": "GoalReached",
+      "event_type": "goal_reached",
+      "description": "Fired when a child hits a reward goal. Triggers celebration messages in the AI feed, unlocks the reward, and notifies the parent dashboard.",
+      "fields": [
+        { "name": "child_id", "type": "string", "description": "UUID of the child who reached the goal" },
+        { "name": "reward_id", "type": "string", "description": "UUID of the reward being unlocked" },
+        { "name": "goal_rule", "type": "object", "description": "The rule that was satisfied", "fields": [
+          { "name": "type", "type": "string", "description": "Rule type: quiz_count | score_threshold | streak | bundle" },
+          { "name": "target", "type": "number", "description": "The target value needed to complete the goal" },
+          { "name": "current", "type": "number", "description": "The child's current value at time of completion" }
+        ]},
+        { "name": "timestamp", "type": "string", "description": "ISO 8601 datetime of goal completion" }
+      ]
+    }
   ],
   "aiRules": [
     {
