@@ -527,6 +527,18 @@ Show alerts for:
         { "name": "status", "type": "string", "description": "active | at_risk | fulfilled | broken | expired" },
         { "name": "timestamp", "type": "string", "description": "ISO 8601 datetime of reward creation" }
       ]
+    },
+    {
+      "name": "RewardRedeemed",
+      "event_type": "reward_redeemed",
+      "description": "Fired when a child redeems an earned reward and the parent approves it. Closes the reward lifecycle. The AI feed celebrates the achievement and the parent dashboard logs fulfillment.",
+      "fields": [
+        { "name": "reward_id", "type": "string", "description": "UUID of the reward being redeemed" },
+        { "name": "child_id", "type": "string", "description": "UUID of the child redeeming" },
+        { "name": "redemption_proof", "type": "string | null", "description": "Evidence of fulfillment: photo_url, note, child_confirmation, or null" },
+        { "name": "approved_by", "type": "string", "description": "UUID of the parent who approved the redemption" },
+        { "name": "timestamp", "type": "string", "description": "ISO 8601 datetime of redemption" }
+      ]
     }
   ],
   "aiRules": [
