@@ -539,6 +539,17 @@ Show alerts for:
         { "name": "approved_by", "type": "string", "description": "UUID of the parent who approved the redemption" },
         { "name": "timestamp", "type": "string", "description": "ISO 8601 datetime of redemption" }
       ]
+    },
+    {
+      "name": "ParentAcknowledgedRisk",
+      "event_type": "parent_acknowledged_risk",
+      "description": "Fired when a parent confirms they understand a reward is a commitment the child will rely on. Creates a timestamped legal-style record tying the parent to the promise. Referenced by the AI if a reward later drifts to at_risk or broken status.",
+      "fields": [
+        { "name": "reward_id", "type": "string", "description": "UUID of the reward being acknowledged" },
+        { "name": "parent_id", "type": "string", "description": "UUID of the parent acknowledging" },
+        { "name": "acknowledgement_text_version", "type": "string", "description": "Version identifier of the acknowledgment copy shown (for audit trail if wording changes)" },
+        { "name": "timestamp", "type": "string", "description": "ISO 8601 datetime of acknowledgment" }
+      ]
     }
   ],
   "aiRules": [
