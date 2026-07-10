@@ -506,6 +506,27 @@ Show alerts for:
         ]},
         { "name": "timestamp", "type": "string", "description": "ISO 8601 datetime of goal completion" }
       ]
+    },
+    {
+      "name": "RewardCreated",
+      "event_type": "reward_created",
+      "description": "Fired when a parent creates a reward for a child. Tracks the promise lifecycle — from creation through fulfillment or expiration. The AI feed uses this for countdown reminders, at-risk warnings, and celebration when fulfilled.",
+      "fields": [
+        { "name": "reward_id", "type": "string", "description": "UUID of the reward" },
+        { "name": "parent_id", "type": "string", "description": "UUID of the parent who created the reward" },
+        { "name": "child_id", "type": "string", "description": "UUID of the child the reward is for" },
+        { "name": "reward_name", "type": "string", "description": "Display name (e.g. 'Game Night', 'Park Trip')" },
+        { "name": "reward_type", "type": "string", "description": "tangible | experiential | privilege" },
+        { "name": "cost_points_or_condition", "type": "string", "description": "What the child must do to earn it (points threshold, quiz count, streak, etc.)" },
+        { "name": "requires_approval", "type": "boolean", "description": "Whether the parent must manually approve redemption" },
+        { "name": "deadline", "type": "string | null", "description": "ISO 8601 deadline or null if open-ended" },
+        { "name": "verification_required", "type": "boolean", "description": "Whether completion must be verified before the reward is granted" },
+        { "name": "is_promise", "type": "boolean", "description": "Whether this is a parent promise (tracked for accountability)" },
+        { "name": "parent_acknowledged_risk", "type": "boolean", "description": "Parent confirmed they understand the child will see this as a commitment" },
+        { "name": "parent_ack_timestamp", "type": "string | null", "description": "ISO 8601 datetime of acknowledgment or null" },
+        { "name": "status", "type": "string", "description": "active | at_risk | fulfilled | broken | expired" },
+        { "name": "timestamp", "type": "string", "description": "ISO 8601 datetime of reward creation" }
+      ]
     }
   ],
   "aiRules": [
