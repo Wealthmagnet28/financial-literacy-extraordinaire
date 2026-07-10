@@ -1,5 +1,5 @@
 ---
-import ParentDashboard from '../components/ParentDashboard.jsx';
+import GoalsAndRewards from '../components/GoalsAndRewards.jsx';
 ---
 
 <html lang="en">
@@ -8,18 +8,14 @@ import ParentDashboard from '../components/ParentDashboard.jsx';
 	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="generator" content={Astro.generator} />
-	<meta name="description" content="Club FLE Parent Dashboard — track your child's progress, manage rewards, and monitor promise accountability." />
-	<title>Parent Dashboard — Club FLE</title>
-	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+	<meta name="description" content="Club FLE Goals & Rewards — set financial goals, track progress, earn badges, and explore compound interest." />
+	<title>Goals & Rewards — Club FLE</title>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 </head>
 <body>
 
 <!-- GRID BG -->
 <div class="grid-bg" aria-hidden="true"></div>
-
-<!-- STARFIELD -->
-<div class="pg-stars pg-stars-sm" aria-hidden="true"></div>
-<div class="pg-stars pg-stars-md" aria-hidden="true"></div>
 
 <!-- NAV -->
 <nav class="nav">
@@ -33,9 +29,9 @@ import ParentDashboard from '../components/ParentDashboard.jsx';
 			<a href="/about">About</a>
 			<a href="/#features">Features</a>
 			<a href="/budget-tracker">Budget Tracker</a>
-			<a href="/parent-dashboard" class="active">Parent Dashboard</a>
+			<a href="/parent-dashboard">Parent Dashboard</a>
 			<a href="/ai-money-coach">AI Coach</a>
-			<a href="/goals-and-rewards">Goals</a>
+			<a href="/goals-and-rewards" class="active">Goals</a>
 			<a href="/#cta" class="nav-btn">Get Started</a>
 		</div>
 		<button class="burger" id="burger" aria-label="Menu">
@@ -44,10 +40,10 @@ import ParentDashboard from '../components/ParentDashboard.jsx';
 	</div>
 </nav>
 
-<!-- MAIN CONTENT -->
-<main class="dash-main">
+<!-- MAIN -->
+<main class="goals-main">
 	<div class="container">
-		<ParentDashboard client:load />
+		<GoalsAndRewards client:load />
 	</div>
 </main>
 
@@ -85,21 +81,15 @@ body{font-family:var(--font);color:#D8D8E8;background:var(--bg);line-height:1.6;
 a{text-decoration:none;color:inherit}
 .container{max-width:1180px;margin:0 auto;padding:0 24px}
 
-@keyframes twinkle-a{0%{opacity:.3}100%{opacity:.9}}
-@keyframes twinkle-b{0%{opacity:.85}100%{opacity:.3}}
 @keyframes grid-crawl{0%{background-position:0 0}100%{background-position:60px 60px}}
-
 .grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(123,47,242,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(123,47,242,.03) 1px,transparent 1px);background-size:60px 60px;animation:grid-crawl 22s linear infinite}
-.pg-stars{position:fixed;inset:0;pointer-events:none;z-index:0}
-.pg-stars-sm{animation:twinkle-a 3s ease-in-out infinite alternate;box-shadow:42px 38px 0 .5px rgba(255,255,255,.7),310px 24px 0 .5px rgba(255,255,255,.6),520px 62px 0 .5px rgba(255,255,255,.8),680px 88px 0 .5px rgba(255,255,255,.55),920px 42px 0 .5px rgba(255,255,255,.65),85px 320px 0 .5px rgba(255,255,255,.6),375px 350px 0 .5px rgba(255,255,255,.7),55px 455px 0 .5px rgba(255,255,255,.75),340px 480px 0 .5px rgba(255,255,255,.65),72px 580px 0 .5px rgba(255,255,255,.65),350px 610px 0 .5px rgba(255,255,255,.6),48px 710px 0 .5px rgba(255,255,255,.7)}
-.pg-stars-md{animation:twinkle-b 5s ease-in-out infinite alternate;box-shadow:95px 65px 0 .75px rgba(255,255,255,.75),440px 48px 0 .75px rgba(255,255,255,.8),810px 80px 0 .75px rgba(255,255,255,.65),380px 250px 0 .75px rgba(255,255,255,.7),720px 410px 0 .75px rgba(255,255,255,.75),200px 580px 0 .75px rgba(255,255,255,.75),750px 680px 0 .75px rgba(255,255,255,.7)}
 
 .nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(10,10,18,.65);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(123,47,242,.1)}
 .nav-inner{max-width:1180px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:72px}
 .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.2rem;z-index:201}
 .logo-icon{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;background:linear-gradient(135deg,var(--purple),var(--orange));border-radius:11px;font-weight:900;font-size:1.1rem;color:#fff}
 .logo-word{color:#fff;letter-spacing:-.3px}
-.nav-links{display:flex;align-items:center;gap:32px;font-size:.925rem;font-weight:500}
+.nav-links{display:flex;align-items:center;gap:28px;font-size:.9rem;font-weight:500}
 .nav-links a{color:rgba(255,255,255,.6);transition:color .25s}
 .nav-links a:hover,.nav-links a.active{color:#fff}
 .nav-btn{background:linear-gradient(135deg,var(--purple),var(--orange));color:#fff!important;padding:10px 24px;border-radius:10px;font-weight:700;transition:transform .3s,box-shadow .3s;box-shadow:0 0 18px rgba(123,47,242,.3)}
@@ -107,7 +97,7 @@ a{text-decoration:none;color:inherit}
 .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:201}
 .burger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px}
 
-.dash-main{position:relative;z-index:1;padding:100px 0 60px;min-height:80vh}
+.goals-main{position:relative;z-index:1;padding:88px 0 40px;min-height:80vh}
 
 .footer{position:relative;z-index:1;padding:48px 0;background:var(--bg);border-top:1px solid rgba(123,47,242,.08);text-align:center}
 .footer-copy{font-size:.85rem;color:rgba(255,255,255,.3);margin-bottom:16px}
@@ -121,6 +111,5 @@ a{text-decoration:none;color:inherit}
 	.nav-links{position:fixed;inset:0;z-index:200;background:rgba(10,10,18,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);flex-direction:column;justify-content:center;gap:28px;font-size:1.3rem;opacity:0;pointer-events:none;transition:opacity .3s}
 	.nav-links.open{opacity:1;pointer-events:auto}
 	.burger{display:flex}
-	.dash-main{padding:88px 0 40px}
 }
 </style>
