@@ -477,6 +477,21 @@ Show alerts for:
       "description": "Get audit history."
     }
   ],
+  "events": [
+    {
+      "name": "QuizCompleted",
+      "event_type": "quiz_completed",
+      "description": "Fired when a child finishes a quiz. Used by the AI feed for praise/streak messages and by the parent dashboard for progress tracking.",
+      "fields": [
+        { "name": "child_id", "type": "string", "description": "UUID of the child who took the quiz" },
+        { "name": "quiz_id", "type": "string", "description": "UUID of the quiz definition" },
+        { "name": "subject", "type": "string", "description": "Topic area (e.g. Budgeting, Saving, Investing)" },
+        { "name": "score", "type": "number", "description": "Score from 0–100" },
+        { "name": "time_spent_seconds", "type": "number", "description": "How long the child spent on the quiz" },
+        { "name": "timestamp", "type": "string", "description": "ISO 8601 datetime of completion" }
+      ]
+    }
+  ],
   "aiRules": [
     {
       "name": "Weekly Overspend",
