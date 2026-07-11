@@ -258,6 +258,20 @@ export default function AIMoneyCoach() {
   const [selectedDay, setSelectedDay] = useState(null);
   const [actions, setActions] = useState(ACTIONS);
   const [expandedMsg, setExpandedMsg] = useState(null);
+  const [helpForm, setHelpForm] = useState({
+    savingFor: "",
+    income: "",
+    payFrequency: "",
+    payDay: "",
+    weeklyPay: "",
+    extraCash: "",
+    budgetGoal: "",
+    investGoal: "",
+  });
+  const [helpSaved, setHelpSaved] = useState(false);
+
+  const updateHelp = (field, value) => setHelpForm(prev => ({ ...prev, [field]: value }));
+  const saveHelp = () => { setHelpSaved(true); setTimeout(() => setHelpSaved(false), 3000); };
 
   const toggleAction = (id) => setActions((prev) => prev.map((a) => (a.id === id ? { ...a, done: !a.done } : a)));
 
@@ -314,6 +328,7 @@ export default function AIMoneyCoach() {
             { id: "days", label: "Spending Days" },
             { id: "organize", label: "Organize" },
             { id: "history", label: "History" },
+            { id: "help", label: "AI Coach Help" },
           ].map((t) => (
             <button
               key={t.id}
@@ -629,6 +644,211 @@ export default function AIMoneyCoach() {
                 </GlassCard>
               );
             })}
+          </div>
+        )}
+
+        {/* ===== AI COACH HELP TAB ===== */}
+        {activeTab === "help" && (
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            {/* Hero */}
+            <GlassCard glow style={{ textAlign: "center" }}>
+              <div style={{ fontSize: 42, marginBottom: 12 }}>🧠</div>
+              <h2 style={{ fontSize: 22, fontWeight: 800, margin: "0 0 8px", background: "linear-gradient(135deg, #e0c3ff, #f59e0b)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                AI Coach Help
+              </h2>
+              <p style={{ fontSize: 14, color: "rgba(255,255,255,0.55)", margin: 0, lineHeight: 1.7, maxWidth: 520, marginInline: "auto" }}>
+                Build your private money plan with guidance that adapts to your income, savings goals, and spending habits.
+              </p>
+            </GlassCard>
+
+            {/* Description */}
+            <GlassCard style={{ borderLeft: "3px solid #b47aff" }}>
+              <p style={{ margin: 0, fontSize: 14, color: "rgba(255,255,255,0.7)", lineHeight: 1.8 }}>
+                Use the AI Coach to create a personalized financial plan based on your savings goals, income, pay schedule, extra cash, budgeting habits, and investing needs. The coach helps you stay organized, track progress, and make smarter money decisions throughout the year.
+              </p>
+            </GlassCard>
+
+            {/* What this page does */}
+            <GlassCard>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+                <span style={{ fontSize: 20 }}>📋</span>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "#e0c3ff" }}>What this page does</div>
+              </div>
+              <p style={{ margin: 0, fontSize: 13, color: "rgba(255,255,255,0.6)", lineHeight: 1.8 }}>
+                This is your onboarding guide. It explains how the AI Coach uses your input to build a private plan for saving, budgeting, and investing — instead of giving generic advice. Enter your details below so the coach can tailor recommendations just for you.
+              </p>
+            </GlassCard>
+
+            {/* User Input Form */}
+            <GlassCard>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 18 }}>
+                <span style={{ fontSize: 20 }}>✏️</span>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "#e0c3ff" }}>Your Information</div>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                {[
+                  { key: "savingFor", label: "What are you saving for?", placeholder: "e.g., Emergency fund, new car, vacation...", icon: "🎯" },
+                  { key: "income", label: "Your income (day, week, or month)", placeholder: "e.g., $500/week, $2,400/month...", icon: "💵" },
+                  { key: "payFrequency", label: "How often do you get paid?", placeholder: "e.g., Weekly, bi-weekly, monthly...", icon: "📅" },
+                  { key: "payDay", label: "What day do you usually get paid?", placeholder: "e.g., Friday, 1st and 15th...", icon: "🗓️" },
+                  { key: "weeklyPay", label: "Average weekly paycheck", placeholder: "e.g., $600", icon: "💰" },
+                  { key: "extraCash", label: "Any random extra cash that comes in?", placeholder: "e.g., Side gigs, gifts, bonuses...", icon: "✨" },
+                  { key: "budgetGoal", label: "Your budgeting goals", placeholder: "e.g., Save 30%, limit dining to $100/week...", icon: "📊" },
+                  { key: "investGoal", label: "Your investing goals", placeholder: "e.g., Start a Roth IRA, invest $200/month...", icon: "📈" },
+                ].map(f => (
+                  <div key={f.key}>
+                    <label style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.75)", marginBottom: 6 }}>
+                      <span>{f.icon}</span> {f.label}
+                    </label>
+                    <input
+                      type="text"
+                      value={helpForm[f.key]}
+                      onChange={e => updateHelp(f.key, e.target.value)}
+                      placeholder={f.placeholder}
+                      style={{
+                        width: "100%",
+                        padding: "12px 16px",
+                        borderRadius: 10,
+                        border: "1px solid rgba(180,122,255,0.2)",
+                        background: "rgba(255,255,255,0.03)",
+                        color: "#fff",
+                        fontSize: 14,
+                        outline: "none",
+                        transition: "border-color 0.2s, box-shadow 0.2s",
+                        fontFamily: "inherit",
+                      }}
+                      onFocus={e => { e.target.style.borderColor = "rgba(180,122,255,0.5)"; e.target.style.boxShadow = "0 0 12px rgba(180,122,255,0.1)"; }}
+                      onBlur={e => { e.target.style.borderColor = "rgba(180,122,255,0.2)"; e.target.style.boxShadow = "none"; }}
+                    />
+                  </div>
+                ))}
+                <button
+                  onClick={saveHelp}
+                  style={{
+                    padding: "14px 32px",
+                    borderRadius: 12,
+                    border: "none",
+                    background: helpSaved ? "linear-gradient(135deg, #4ade80, #22c55e)" : "linear-gradient(135deg, #b47aff, #f59e0b)",
+                    color: "#fff",
+                    fontSize: 15,
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    transition: "all 0.3s",
+                    marginTop: 4,
+                    boxShadow: "0 0 18px rgba(180,122,255,0.2)",
+                  }}
+                >
+                  {helpSaved ? "✓ Saved to Your Coach Profile" : "Save to AI Coach"}
+                </button>
+              </div>
+            </GlassCard>
+
+            {/* How the AI Coach helps */}
+            <GlassCard>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+                <span style={{ fontSize: 20 }}>🤖</span>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "#e0c3ff" }}>How the AI Coach helps</div>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {[
+                  { text: "Builds a private plan based on your info", color: "#b47aff", bg: "rgba(180,122,255,0.08)", border: "rgba(180,122,255,0.15)" },
+                  { text: "Helps you stay on track with saving", color: "#4ade80", bg: "rgba(74,222,128,0.08)", border: "rgba(74,222,128,0.15)" },
+                  { text: "Supports budgeting and spending decisions", color: "#38bdf8", bg: "rgba(56,189,248,0.08)", border: "rgba(56,189,248,0.15)" },
+                  { text: "Gives guidance for investing and long-term growth", color: "#f59e0b", bg: "rgba(245,158,11,0.08)", border: "rgba(245,158,11,0.15)" },
+                  { text: "Updates as your income or goals change", color: "#e879f9", bg: "rgba(232,121,249,0.08)", border: "rgba(232,121,249,0.15)" },
+                ].map((item, i) => (
+                  <div key={i} style={{ padding: "12px 16px", borderRadius: 10, background: item.bg, border: `1px solid ${item.border}`, display: "flex", alignItems: "center", gap: 10 }}>
+                    <span style={{ color: item.color, fontSize: 14, fontWeight: 700 }}>✓</span>
+                    <span style={{ fontSize: 13, color: "rgba(255,255,255,0.75)", lineHeight: 1.5 }}>{item.text}</span>
+                  </div>
+                ))}
+              </div>
+            </GlassCard>
+
+            {/* AI Coach Purpose */}
+            <GlassCard>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+                <span style={{ fontSize: 20 }}>🎯</span>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "#e0c3ff" }}>AI Coach Purpose</div>
+              </div>
+              <p style={{ margin: "0 0 14px", fontSize: 13, color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
+                The AI Coach helps you set up for success by giving personalized guidance for:
+              </p>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                {[
+                  { icon: "💰", label: "Saving money", desc: "Set targets and track progress" },
+                  { icon: "💵", label: "Managing active income", desc: "Organize paychecks and cash flow" },
+                  { icon: "📈", label: "Planning investments", desc: "Start small, grow over time" },
+                  { icon: "📊", label: "Sticking to a budget", desc: "Stay disciplined week over week" },
+                  { icon: "📉", label: "Tracking progress", desc: "See how far you've come" },
+                  { icon: "📅", label: "Staying prepared", desc: "Plan for events and expenses" },
+                ].map((p, i) => (
+                  <div key={i} style={{ padding: 14, borderRadius: 12, background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", textAlign: "center" }}>
+                    <div style={{ fontSize: 22, marginBottom: 6 }}>{p.icon}</div>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: "rgba(255,255,255,0.85)", marginBottom: 4 }}>{p.label}</div>
+                    <div style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", lineHeight: 1.4 }}>{p.desc}</div>
+                  </div>
+                ))}
+              </div>
+            </GlassCard>
+
+            {/* Helpful Prompts */}
+            <GlassCard>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+                <span style={{ fontSize: 20 }}>💡</span>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "#e0c3ff" }}>Helpful Prompts</div>
+              </div>
+              <p style={{ margin: "0 0 12px", fontSize: 12, color: "rgba(255,255,255,0.4)" }}>Try asking the AI Coach questions like these:</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {[
+                  "What are you saving for?",
+                  "How much do you earn on average each week?",
+                  "How often do you get paid?",
+                  "What day do you usually get paid?",
+                  "Do you receive extra cash sometimes?",
+                  "How much do you want to budget, save, or invest?",
+                ].map((prompt, i) => (
+                  <div key={i} style={{ padding: "10px 16px", borderRadius: 10, background: "rgba(180,122,255,0.06)", border: "1px solid rgba(180,122,255,0.12)", display: "flex", alignItems: "center", gap: 10 }}>
+                    <span style={{ fontSize: 12, color: "#b47aff", fontWeight: 700 }}>→</span>
+                    <span style={{ fontSize: 13, color: "rgba(255,255,255,0.7)", fontStyle: "italic" }}>"{prompt}"</span>
+                  </div>
+                ))}
+              </div>
+            </GlassCard>
+
+            {/* Feature Note */}
+            <GlassCard style={{ borderLeft: "3px solid #f59e0b" }}>
+              <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                <span style={{ fontSize: 18 }}>⚠️</span>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: "#fbbf24", marginBottom: 6 }}>Feature Note</div>
+                  <p style={{ margin: 0, fontSize: 13, color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
+                    This feature works best after the core tracking system is in place, because it depends on reminders, user history, event planning, and personalized guidance to give useful recommendations.
+                  </p>
+                </div>
+              </div>
+            </GlassCard>
+
+            {/* Quick action — go to Coach tab */}
+            <div style={{ textAlign: "center" }}>
+              <button
+                onClick={() => setActiveTab("coach")}
+                style={{
+                  padding: "14px 36px",
+                  borderRadius: 12,
+                  border: "none",
+                  background: "linear-gradient(135deg, #b47aff, #f59e0b)",
+                  color: "#fff",
+                  fontSize: 15,
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  boxShadow: "0 0 24px rgba(180,122,255,0.25)",
+                  transition: "transform 0.2s, box-shadow 0.2s",
+                }}
+              >
+                Launch AI Coach →
+              </button>
+            </div>
           </div>
         )}
 
