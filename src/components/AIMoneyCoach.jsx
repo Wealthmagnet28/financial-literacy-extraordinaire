@@ -65,10 +65,9 @@ const ALERTS = [
 ];
 
 const ACTIONS = [
-  { id: 1, label: "Move $50 to savings", icon: "💰", done: false },
-  { id: 2, label: "Review subscriptions", icon: "🔍", done: false },
-  { id: 3, label: "Set tomorrow's spending cap", icon: "🎯", done: false },
-  { id: 4, label: "Check upcoming bills", icon: "📋", done: true },
+  { id: 1, label: "Review subscriptions", icon: "🔍", done: false },
+  { id: 2, label: "Set tomorrow's spending cap", icon: "🎯", done: false },
+  { id: 3, label: "Check upcoming bills", icon: "📋", done: true },
 ];
 
 // --- Animated Starfield Background ---
