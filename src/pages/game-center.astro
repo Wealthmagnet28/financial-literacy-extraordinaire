@@ -1,5 +1,5 @@
 ---
-import GoalsAndRewards from '../components/GoalsAndRewards.jsx';
+import GameCenter from '../components/GameCenter.jsx';
 ---
 
 <html lang="en">
@@ -8,8 +8,8 @@ import GoalsAndRewards from '../components/GoalsAndRewards.jsx';
 	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="generator" content={Astro.generator} />
-	<meta name="description" content="Club FLE Goals & Rewards — set financial goals, track progress, earn badges, and explore compound interest." />
-	<title>Goals & Rewards — Club FLE</title>
+	<meta name="description" content="Club FLE Game Center — learn financial literacy through quizzes, scenarios, sorting games, timed challenges, and matching activities for kids, teens, and adults." />
+	<title>Game Center — Club FLE</title>
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 </head>
 <body>
@@ -31,10 +31,10 @@ import GoalsAndRewards from '../components/GoalsAndRewards.jsx';
 			<a href="/budget-tracker">Budget Tracker</a>
 			<a href="/parent-dashboard">Parent Dashboard</a>
 			<a href="/ai-money-coach">AI Coach</a>
-			<a href="/goals-and-rewards" class="active">Goals</a>
+			<a href="/goals-and-rewards">Goals</a>
 			<a href="/business-simulator">Simulator</a>
 			<a href="/wealth-newsfeed">Newsfeed</a>
-			<a href="/game-center">Games</a>
+			<a href="/game-center" class="active">Games</a>
 			<a href="/#cta" class="nav-btn">Get Started</a>
 		</div>
 		<button class="burger" id="burger" aria-label="Menu">
@@ -44,9 +44,9 @@ import GoalsAndRewards from '../components/GoalsAndRewards.jsx';
 </nav>
 
 <!-- MAIN -->
-<main class="goals-main">
+<main class="gc-main">
 	<div class="container">
-		<GoalsAndRewards client:load />
+		<GameCenter client:load />
 	</div>
 </main>
 
@@ -92,7 +92,7 @@ a{text-decoration:none;color:inherit}
 .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.2rem;z-index:201}
 .logo-icon{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;background:linear-gradient(135deg,var(--purple),var(--orange));border-radius:11px;font-weight:900;font-size:1.1rem;color:#fff}
 .logo-word{color:#fff;letter-spacing:-.3px}
-.nav-links{display:flex;align-items:center;gap:28px;font-size:.9rem;font-weight:500}
+.nav-links{display:flex;align-items:center;gap:24px;font-size:.85rem;font-weight:500}
 .nav-links a{color:rgba(255,255,255,.6);transition:color .25s}
 .nav-links a:hover,.nav-links a.active{color:#fff}
 .nav-btn{background:linear-gradient(135deg,var(--purple),var(--orange));color:#fff!important;padding:10px 24px;border-radius:10px;font-weight:700;transition:transform .3s,box-shadow .3s;box-shadow:0 0 18px rgba(123,47,242,.3)}
@@ -100,7 +100,7 @@ a{text-decoration:none;color:inherit}
 .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:201}
 .burger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px}
 
-.goals-main{position:relative;z-index:1;padding:88px 0 40px;min-height:80vh}
+.gc-main{position:relative;z-index:1;padding:88px 0 40px;min-height:80vh}
 
 .footer{position:relative;z-index:1;padding:48px 0;background:var(--bg);border-top:1px solid rgba(123,47,242,.08);text-align:center}
 .footer-copy{font-size:.85rem;color:rgba(255,255,255,.3);margin-bottom:16px}
