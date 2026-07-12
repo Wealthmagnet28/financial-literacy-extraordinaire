@@ -270,6 +270,74 @@ export default function AIMoneyCoach() {
   });
   const [helpSaved, setHelpSaved] = useState(false);
 
+  // Event Planner state
+  const [events, setEvents] = useState([
+    { id: "evt1", title: "Car Insurance Payment", description: "Annual premium due", eventDate: "2026-07-15", eventTime: "09:00", category: "Bills", reminder: { enabled: true, type: "preset", value: 7, unit: "days" }, repeatAnnually: true, completed: false, createdAt: Date.now() },
+    { id: "evt2", title: "Mom's Birthday", description: "Plan dinner and gift", eventDate: "2026-08-12", eventTime: "18:00", category: "Personal", reminder: { enabled: true, type: "preset", value: 30, unit: "days" }, repeatAnnually: true, completed: false, createdAt: Date.now() },
+    { id: "evt3", title: "Quarterly Tax Deadline", description: "Estimated tax payment Q3", eventDate: "2026-09-15", eventTime: "12:00", category: "Financial", reminder: { enabled: true, type: "preset", value: 14, unit: "days" }, repeatAnnually: false, completed: false, createdAt: Date.now() },
+    { id: "evt4", title: "Gym Membership Renewal", description: "Cancel or renew before auto-charge", eventDate: "2026-07-20", eventTime: "08:00", category: "Bills", reminder: { enabled: true, type: "preset", value: 3, unit: "days" }, repeatAnnually: false, completed: false, createdAt: Date.now() },
+    { id: "evt5", title: "Investment Portfolio Review", description: "Rebalance and check allocation", eventDate: "2026-10-01", eventTime: "10:00", category: "Financial", reminder: { enabled: true, type: "preset", value: 7, unit: "days" }, repeatAnnually: false, completed: false, createdAt: Date.now() },
+  ]);
+  const [plannerView, setPlannerView] = useState("upcoming");
+  const [calMonth, setCalMonth] = useState(() => { const d = new Date(); return { year: d.getFullYear(), month: d.getMonth() }; });
+  const [showAddEvent, setShowAddEvent] = useState(false);
+  const [editingEvent, setEditingEvent] = useState(null);
+  const [eventForm, setEventForm] = useState({ title: "", description: "", eventDate: "", eventTime: "", category: "Personal", reminderEnabled: true, reminderValue: 7, reminderUnit: "days", repeatAnnually: false });
+  const [eventSaved, setEventSaved] = useState(false);
+
+  const EVENT_CATEGORIES = [
+    { value: "Personal", icon: "👤", color: "#b47aff" },
+    { value: "Financial", icon: "💰", color: "#4ade80" },
+    { value: "Bills", icon: "📄", color: "#f87171" },
+    { value: "Work", icon: "💼", color: "#38bdf8" },
+    { value: "Health", icon: "🏥", color: "#f59e0b" },
+    { value: "Education", icon: "📚", color: "#e879f9" },
+  ];
+
+  const resetEventForm = () => setEventForm({ title: "", description: "", eventDate: "", eventTime: "", category: "Personal", reminderEnabled: true, reminderValue: 7, reminderUnit: "days", repeatAnnually: false });
+
+  const saveEvent = () => {
+    if (!eventForm.title || !eventForm.eventDate) return;
+    const now = Date.now();
+    if (editingEvent) {
+      setEvents(prev => prev.map(e => e.id === editingEvent ? { ...e, title: eventForm.title, description: eventForm.description, eventDate: eventForm.eventDate, eventTime: eventForm.eventTime, category: eventForm.category, reminder: { enabled: eventForm.reminderEnabled, type: "preset", value: eventForm.reminderValue, unit: eventForm.reminderUnit }, repeatAnnually: eventForm.repeatAnnually, updatedAt: now } : e));
+      setEditingEvent(null);
+    } else {
+      setEvents(prev => [...prev, { id: `evt${now}`, title: eventForm.title, description: eventForm.description, eventDate: eventForm.eventDate, eventTime: eventForm.eventTime, category: eventForm.category, reminder: { enabled: eventForm.reminderEnabled, type: "preset", value: eventForm.reminderValue, unit: eventForm.reminderUnit }, repeatAnnually: eventForm.repeatAnnually, completed: false, createdAt: now }]);
+    }
+    resetEventForm();
+    setShowAddEvent(false);
+    setEventSaved(true);
+    setTimeout(() => setEventSaved(false), 2000);
+  };
+
+  const startEdit = (evt) => {
+    setEventForm({ title: evt.title, description: evt.description, eventDate: evt.eventDate, eventTime: evt.eventTime, category: evt.category, reminderEnabled: evt.reminder.enabled, reminderValue: evt.reminder.value, reminderUnit: evt.reminder.unit, repeatAnnually: evt.repeatAnnually });
+    setEditingEvent(evt.id);
+    setShowAddEvent(true);
+  };
+
+  const deleteEvent = (id) => setEvents(prev => prev.filter(e => e.id !== id));
+  const toggleComplete = (id) => setEvents(prev => prev.map(e => e.id === id ? { ...e, completed: !e.completed } : e));
+
+  const sortedEvents = [...events].sort((a, b) => new Date(a.eventDate) - new Date(b.eventDate));
+  const upcomingEvents = sortedEvents.filter(e => !e.completed && new Date(e.eventDate) >= new Date(new Date().toDateString()));
+
+  const getDaysUntil = (dateStr) => {
+    const diff = Math.ceil((new Date(dateStr) - new Date(new Date().toDateString())) / 86400000);
+    if (diff === 0) return "Today";
+    if (diff === 1) return "Tomorrow";
+    if (diff < 0) return `${Math.abs(diff)}d ago`;
+    return `${diff}d away`;
+  };
+
+  const getReminderLabel = (r) => {
+    if (!r.enabled) return "Off";
+    return `${r.value} ${r.unit} before`;
+  };
+
+  const getEventsForDate = (dateStr) => events.filter(e => e.eventDate === dateStr);
+
   const updateHelp = (field, value) => setHelpForm(prev => ({ ...prev, [field]: value }));
   const saveHelp = () => { setHelpSaved(true); setTimeout(() => setHelpSaved(false), 3000); };
 
@@ -328,6 +396,7 @@ export default function AIMoneyCoach() {
             { id: "days", label: "Spending Days" },
             { id: "organize", label: "Organize" },
             { id: "history", label: "History" },
+            { id: "planner", label: "Event Planner" },
             { id: "help", label: "AI Coach Help" },
           ].map((t) => (
             <button
