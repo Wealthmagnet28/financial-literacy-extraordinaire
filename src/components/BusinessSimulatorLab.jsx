@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import Starfield from "./Starfield.jsx";
 
 // ═══════════════════════════════════════════════════════════════
 // DATA: 30 BUSINESSES
@@ -131,45 +132,6 @@ const OPPONENT_FEEDBACK = {
 // ═══════════════════════════════════════════════════════════════
 // SHARED COMPONENTS
 // ═══════════════════════════════════════════════════════════════
-
-function Starfield() {
-  const canvasRef = useRef(null);
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    let animId, stars = [];
-    const resize = () => {
-      canvas.width = canvas.offsetWidth * 2;
-      canvas.height = canvas.offsetHeight * 2;
-      stars = Array.from({ length: 80 }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 1.2 + 0.3,
-        sp: Math.random() * 0.25 + 0.05,
-        a: Math.random() * 0.4 + 0.2,
-        p: Math.random() * 6.28,
-      }));
-    };
-    resize();
-    window.addEventListener("resize", resize);
-    const draw = (t) => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      stars.forEach((s) => {
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, 6.28);
-        ctx.fillStyle = `rgba(200,180,255,${Math.max(0, s.a + Math.sin(t * 0.001 + s.p) * 0.1)})`;
-        ctx.fill();
-        s.y -= s.sp;
-        if (s.y < -5) { s.y = canvas.height + 5; s.x = Math.random() * canvas.width; }
-      });
-      animId = requestAnimationFrame(draw);
-    };
-    animId = requestAnimationFrame(draw);
-    return () => { cancelAnimationFrame(animId); window.removeEventListener("resize", resize); };
-  }, []);
-  return <canvas ref={canvasRef} style={{ position: "fixed", inset: 0, width: "100%", height: "100%", zIndex: 0, pointerEvents: "none" }} />;
-}
 
 function Glass({ children, style, glow, onClick, accent }) {
   return (
@@ -1279,27 +1241,29 @@ export default function BusinessSimulatorLab() {
     { id: "challenge", label: "Compete", icon: "⚔️" },
   ];
 
+  const tabsRef = useRef(null);
+  const handleTabKey = (e) => {
+    const enabled = tabs.filter((t) => !t.dis);
+    const idx = enabled.findIndex((t) => t.id === screen);
+    let next;
+    if (e.key === "ArrowRight") { e.preventDefault(); next = enabled[(idx + 1) % enabled.length]?.id; }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); next = enabled[(idx - 1 + enabled.length) % enabled.length]?.id; }
+    if (next) {
+      setScreen(next);
+      tabsRef.current?.querySelector(`[data-tab="${next}"]`)?.focus();
+    }
+  };
+
   return (
-    <div style={{
-      minHeight: "100vh",
-      background: "linear-gradient(160deg, #0a0514 0%, #110a24 40%, #0d0820 100%)",
-      color: "#fff",
-      fontFamily: "'Inter', 'SF Pro Display', -apple-system, sans-serif",
-      position: "relative",
-      overflow: "hidden",
-    }}>
+    <div className="page-bg pos-relative overflow-hidden">
       <Starfield />
-      <div style={{ position: "relative", zIndex: 1, maxWidth: 900, margin: "0 auto", padding: "32px 16px 64px" }}>
+      <main className="container-medium pos-relative z-1">
 
         {/* HEADER */}
-        <div style={{ textAlign: "center", marginBottom: 8 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, color: "#b47aff", textTransform: "uppercase", marginBottom: 8 }}>Club FLE</div>
-          <h1 style={{
-            fontSize: 28, fontWeight: 800, margin: "0 0 6px",
-            background: "linear-gradient(135deg, #e0c3ff, #f59e0b, #fbbf24)",
-            WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-          }}>Business Simulator Lab</h1>
-          <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", margin: 0, maxWidth: 460, marginInline: "auto", lineHeight: 1.5 }}>
+        <div className="page-header" style={{ marginBottom: 8 }}>
+          <div className="page-header-label" aria-hidden="true">Club FLE</div>
+          <h1 className="page-header-title" style={{ fontSize: 28 }}>Business Simulator Lab</h1>
+          <p className="page-header-desc" style={{ fontSize: 13, maxWidth: 460 }}>
             Pick a business. Study the strategy. Quiz. Game. Pitch head-to-head. Earn your scores.
           </p>
         </div>
@@ -1323,52 +1287,61 @@ export default function BusinessSimulatorLab() {
         )}
 
         {/* TAB NAV */}
-        <div style={{ display: "flex", gap: 3, marginBottom: 20, background: "rgba(255,255,255,0.03)", borderRadius: 12, padding: 3, overflowX: "auto" }}>
+        <div
+          className="tab-bar mb-20"
+          role="tablist"
+          aria-label="Business Simulator Lab sections"
+          ref={tabsRef}
+          onKeyDown={handleTabKey}
+          style={{ padding: 3, maxWidth: "none", margin: "0 0 20px", overflowX: "auto" }}
+        >
           {tabs.map((t) => (
             <button
               key={t.id}
+              data-tab={t.id}
+              role="tab"
+              aria-selected={screen === t.id}
+              aria-controls={`biz-panel-${t.id}`}
+              aria-disabled={t.dis || undefined}
+              id={`biz-tab-${t.id}`}
+              tabIndex={screen === t.id ? 0 : -1}
               onClick={() => !t.dis && setScreen(t.id)}
+              className={`tab-item${screen === t.id ? " tab-item-active" : ""}`}
               style={{
                 flex: 1,
                 padding: "10px 4px",
-                borderRadius: 10,
-                border: "none",
                 cursor: t.dis ? "default" : "pointer",
                 fontSize: 10,
-                fontWeight: 600,
-                transition: "all 0.2s",
                 minWidth: 0,
                 whiteSpace: "nowrap",
-                background: screen === t.id ? "rgba(180,122,255,0.2)" : "transparent",
-                color: t.dis ? "rgba(255,255,255,0.15)" : screen === t.id ? "#d4b4ff" : "rgba(255,255,255,0.4)",
-                display: "flex",
+                color: t.dis ? "rgba(255,255,255,0.15)" : undefined,
                 flexDirection: "column",
-                alignItems: "center",
+                justifyContent: "center",
                 gap: 2,
               }}
             >
-              <span style={{ fontSize: 14 }}>{t.icon}</span>
+              <span style={{ fontSize: 14 }} aria-hidden="true">{t.icon}</span>
               <span>{t.label}</span>
             </button>
           ))}
         </div>
 
         {/* SCREENS */}
-        {screen === "pick" && <BusinessPicker onSelect={selectBiz} currentBiz={selectedBiz} />}
-        {screen === "analyze" && selectedBiz && <Analysis biz={selectedBiz} />}
-        {screen === "quiz" && <QuizMode onScore={addScore} />}
-        {screen === "game" && <MoleGame onScore={addScore} />}
-        {screen === "pitch" && <MutualPitch selectedBiz={selectedBiz} judgeMode={judgeMode} setJudgeMode={setJudgeMode} pitchRequestsOn={pitchRequestsOn} setPitchRequestsOn={setPitchRequestsOn} />}
-        {screen === "scores" && <Scores scores={scores} />}
-        {screen === "challenge" && <Challenge scores={scores} />}
+        {screen === "pick" && <div id="biz-panel-pick" role="tabpanel" aria-labelledby="biz-tab-pick"><BusinessPicker onSelect={selectBiz} currentBiz={selectedBiz} /></div>}
+        {screen === "analyze" && selectedBiz && <div id="biz-panel-analyze" role="tabpanel" aria-labelledby="biz-tab-analyze"><Analysis biz={selectedBiz} /></div>}
+        {screen === "quiz" && <div id="biz-panel-quiz" role="tabpanel" aria-labelledby="biz-tab-quiz"><QuizMode onScore={addScore} /></div>}
+        {screen === "game" && <div id="biz-panel-game" role="tabpanel" aria-labelledby="biz-tab-game"><MoleGame onScore={addScore} /></div>}
+        {screen === "pitch" && <div id="biz-panel-pitch" role="tabpanel" aria-labelledby="biz-tab-pitch"><MutualPitch selectedBiz={selectedBiz} judgeMode={judgeMode} setJudgeMode={setJudgeMode} pitchRequestsOn={pitchRequestsOn} setPitchRequestsOn={setPitchRequestsOn} /></div>}
+        {screen === "scores" && <div id="biz-panel-scores" role="tabpanel" aria-labelledby="biz-tab-scores"><Scores scores={scores} /></div>}
+        {screen === "challenge" && <div id="biz-panel-challenge" role="tabpanel" aria-labelledby="biz-tab-challenge"><Challenge scores={scores} /></div>}
 
         {/* FOOTER */}
-        <div style={{ textAlign: "center", marginTop: 48, paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+        <footer style={{ textAlign: "center", marginTop: 48, paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
           <div style={{ fontSize: 10, letterSpacing: 2, color: "rgba(255,255,255,0.2)", textTransform: "uppercase" }}>
             Club FLE · Financial Literacy Extraordinaire
           </div>
-        </div>
-      </div>
+        </footer>
+      </main>
     </div>
   );
 }

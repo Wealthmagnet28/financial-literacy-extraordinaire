@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import Starfield from "./Starfield.jsx";
 
 // --- Mock Data ---
 const WEEK_DATA = [
@@ -69,48 +70,6 @@ const ACTIONS = [
   { id: 2, label: "Set tomorrow's spending cap", icon: "🎯", done: false },
   { id: 3, label: "Check upcoming bills", icon: "📋", done: true },
 ];
-
-// --- Animated Starfield Background ---
-function Starfield() {
-  const canvasRef = useRef(null);
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    let animId;
-    let stars = [];
-    const resize = () => {
-      canvas.width = canvas.offsetWidth * 2;
-      canvas.height = canvas.offsetHeight * 2;
-      stars = Array.from({ length: 120 }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 1.5 + 0.3,
-        speed: Math.random() * 0.4 + 0.1,
-        alpha: Math.random() * 0.6 + 0.2,
-        pulse: Math.random() * Math.PI * 2,
-      }));
-    };
-    resize();
-    window.addEventListener("resize", resize);
-    const draw = (t) => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      stars.forEach((s) => {
-        const a = s.alpha + Math.sin(t * 0.001 + s.pulse) * 0.15;
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(200, 180, 255, ${Math.max(0, a)})`;
-        ctx.fill();
-        s.y -= s.speed;
-        if (s.y < -5) { s.y = canvas.height + 5; s.x = Math.random() * canvas.width; }
-      });
-      animId = requestAnimationFrame(draw);
-    };
-    animId = requestAnimationFrame(draw);
-    return () => { cancelAnimationFrame(animId); window.removeEventListener("resize", resize); };
-  }, []);
-  return <canvas ref={canvasRef} style={{ position: "fixed", inset: 0, width: "100%", height: "100%", zIndex: 0, pointerEvents: "none" }} />;
-}
 
 // --- Glassmorphism Card ---
 function GlassCard({ children, style, className, glow, onClick }) {
@@ -354,67 +313,84 @@ export default function AIMoneyCoach() {
     alert: { icon: "⚡", accent: "#f87171", label: "Alert" },
   };
 
+  const amcTabs = [
+    { id: "coach", label: "Coach" },
+    { id: "flow", label: "Money Flow" },
+    { id: "days", label: "Spending Days" },
+    { id: "organize", label: "Organize" },
+    { id: "history", label: "History" },
+    { id: "planner", label: "Event Planner" },
+    { id: "help", label: "AI Coach Help" },
+  ];
+  const amcTabRef = useRef(null);
+  const handleAmcTabKey = (e) => {
+    const idx = amcTabs.findIndex((t) => t.id === activeTab);
+    let next;
+    if (e.key === "ArrowRight") { e.preventDefault(); next = amcTabs[(idx + 1) % amcTabs.length].id; }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); next = amcTabs[(idx - 1 + amcTabs.length) % amcTabs.length].id; }
+    else if (e.key === "Home") { e.preventDefault(); next = amcTabs[0].id; }
+    else if (e.key === "End") { e.preventDefault(); next = amcTabs[amcTabs.length - 1].id; }
+    if (next) {
+      setActiveTab(next);
+      amcTabRef.current?.querySelector(`[data-tab="${next}"]`)?.focus();
+    }
+  };
+
   return (
-    <div style={{ minHeight: "100vh", background: "linear-gradient(160deg, #0a0514 0%, #110a24 40%, #0d0820 100%)", color: "#fff", fontFamily: "'Inter', 'SF Pro Display', -apple-system, sans-serif", position: "relative", overflow: "hidden" }}>
+    <div className="page-bg pos-relative overflow-hidden">
       <Starfield />
 
-      <div style={{ position: "relative", zIndex: 1, maxWidth: 900, margin: "0 auto", padding: "32px 16px 64px" }}>
+      <main className="container-medium pos-relative z-1">
 
         {/* ===== HEADER ===== */}
-        <div style={{ textAlign: "center", marginBottom: 32 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, color: "#b47aff", textTransform: "uppercase", marginBottom: 8 }}>
+        <div className="page-header">
+          <div className="page-header-label" aria-hidden="true">
             Club FLE
           </div>
-          <h1 style={{ fontSize: 32, fontWeight: 800, margin: "0 0 6px", background: "linear-gradient(135deg, #e0c3ff, #f59e0b, #fbbf24)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+          <h1 className="page-header-title">
             AI Money Coach
           </h1>
-          <p style={{ fontSize: 14, color: "rgba(255,255,255,0.45)", margin: 0, maxWidth: 420, marginInline: "auto" }}>
+          <p className="page-header-desc" style={{ maxWidth: 420 }}>
             Your personal guide for smarter spending and better money habits.
           </p>
         </div>
 
         {/* ===== QUICK STATS ===== */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12, marginBottom: 24 }}>
+        <div className="stat-grid-3 mb-24">
           {[
             { label: "This Week", value: `$${weekSpent}`, sub: "of $420 budget", color: weekSpent > 420 ? "#f87171" : "#4ade80" },
             { label: "Savings Move", value: `+$${FLOW_DATA.saved}`, sub: "this month", color: "#f59e0b" },
             { label: "Coach Streak", value: `${streak} days`, sub: `${goodDays}/7 good days`, color: "#b47aff" },
           ].map((s) => (
-            <GlassCard key={s.label} style={{ padding: 16, textAlign: "center" }}>
-              <div style={{ fontSize: 10, color: "rgba(255,255,255,0.4)", fontWeight: 600, letterSpacing: 1, textTransform: "uppercase", marginBottom: 6 }}>{s.label}</div>
-              <div style={{ fontSize: 22, fontWeight: 800, color: s.color }}>{s.value}</div>
-              <div style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", marginTop: 2 }}>{s.sub}</div>
-            </GlassCard>
+            <div key={s.label} className="stat-card">
+              <div className="stat-card-label">{s.label}</div>
+              <div className="stat-card-value" style={{ color: s.color }}>{s.value}</div>
+              <div className="stat-card-sub">{s.sub}</div>
+            </div>
           ))}
         </div>
 
         {/* ===== TAB NAV ===== */}
-        <div style={{ display: "flex", gap: 4, marginBottom: 20, background: "rgba(255,255,255,0.03)", borderRadius: 12, padding: 4 }}>
-          {[
-            { id: "coach", label: "Coach" },
-            { id: "flow", label: "Money Flow" },
-            { id: "days", label: "Spending Days" },
-            { id: "organize", label: "Organize" },
-            { id: "history", label: "History" },
-            { id: "planner", label: "Event Planner" },
-            { id: "help", label: "AI Coach Help" },
-          ].map((t) => (
+        <div
+          className="tab-bar mb-20"
+          role="tablist"
+          aria-label="AI Money Coach sections"
+          ref={amcTabRef}
+          onKeyDown={handleAmcTabKey}
+          style={{ padding: 4, maxWidth: "none", margin: "0 0 20px" }}
+        >
+          {amcTabs.map((t) => (
             <button
               key={t.id}
+              data-tab={t.id}
+              role="tab"
+              aria-selected={activeTab === t.id}
+              aria-controls={`amc-panel-${t.id}`}
+              id={`amc-tab-${t.id}`}
+              tabIndex={activeTab === t.id ? 0 : -1}
               onClick={() => setActiveTab(t.id)}
-              style={{
-                flex: 1,
-                padding: "10px 8px",
-                borderRadius: 10,
-                border: "none",
-                cursor: "pointer",
-                fontSize: 12,
-                fontWeight: 600,
-                transition: "all 0.2s",
-                background: activeTab === t.id ? "rgba(180, 122, 255, 0.2)" : "transparent",
-                color: activeTab === t.id ? "#d4b4ff" : "rgba(255,255,255,0.4)",
-                boxShadow: activeTab === t.id ? "0 0 12px rgba(180, 122, 255, 0.1)" : "none",
-              }}
+              className={`tab-item${activeTab === t.id ? " tab-item-active" : ""}`}
+              style={{ flex: 1, justifyContent: "center" }}
             >
               {t.label}
             </button>
@@ -423,7 +399,7 @@ export default function AIMoneyCoach() {
 
         {/* ===== COACH TAB ===== */}
         {activeTab === "coach" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <div id="amc-panel-coach" role="tabpanel" aria-labelledby="amc-tab-coach" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             {/* Today's Coach Message */}
             <GlassCard glow>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
@@ -516,7 +492,7 @@ export default function AIMoneyCoach() {
 
         {/* ===== MONEY FLOW TAB ===== */}
         {activeTab === "flow" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <div id="amc-panel-flow" role="tabpanel" aria-labelledby="amc-tab-flow" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             {/* Summary */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
               {[
@@ -555,7 +531,7 @@ export default function AIMoneyCoach() {
 
         {/* ===== SPENDING DAYS TAB ===== */}
         {activeTab === "days" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <div id="amc-panel-days" role="tabpanel" aria-labelledby="amc-tab-days" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <GlassCard>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#e0c3ff", marginBottom: 16 }}>This Week at a Glance</div>
               <SpendingChart data={WEEK_DATA} />
@@ -618,7 +594,7 @@ export default function AIMoneyCoach() {
 
         {/* ===== ORGANIZE TAB ===== */}
         {activeTab === "organize" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <div id="amc-panel-organize" role="tabpanel" aria-labelledby="amc-tab-organize" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             {/* Goals */}
             <GlassCard>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#e0c3ff", marginBottom: 16 }}>Goals</div>
@@ -684,7 +660,7 @@ export default function AIMoneyCoach() {
 
         {/* ===== HISTORY TAB ===== */}
         {activeTab === "history" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <div id="amc-panel-history" role="tabpanel" aria-labelledby="amc-tab-history" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             <div style={{ fontSize: 14, fontWeight: 700, color: "#e0c3ff", marginBottom: 4 }}>Coaching History</div>
             <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", margin: "0 0 8px" }}>
               Every message your coach has sent, so you can track progress over time.
@@ -718,7 +694,7 @@ export default function AIMoneyCoach() {
 
         {/* ===== AI COACH HELP TAB ===== */}
         {activeTab === "help" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <div id="amc-panel-help" role="tabpanel" aria-labelledby="amc-tab-help" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             {/* Hero */}
             <GlassCard glow style={{ textAlign: "center" }}>
               <div style={{ fontSize: 42, marginBottom: 12 }}>🧠</div>
@@ -922,12 +898,12 @@ export default function AIMoneyCoach() {
         )}
 
         {/* ===== FOOTER ===== */}
-        <div style={{ textAlign: "center", marginTop: 48, paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+        <footer style={{ textAlign: "center", marginTop: 48, paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
           <div style={{ fontSize: 10, letterSpacing: 2, color: "rgba(255,255,255,0.2)", textTransform: "uppercase" }}>
             Club FLE · Financial Literacy Extraordinaire
           </div>
-        </div>
-      </div>
+        </footer>
+      </main>
     </div>
   );
 }

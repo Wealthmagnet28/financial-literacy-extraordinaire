@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import Starfield from "./Starfield.jsx";
 
 // ═══════════════════════════════════════════════════════════════
 // GAME CENTER DATA
@@ -298,22 +299,8 @@ function calcOverallPct(scores) {
 // UI COMPONENTS
 // ═══════════════════════════════════════════════════════════════
 
-function Starfield() {
-  const ref = useRef(null);
-  useEffect(() => {
-    const c = ref.current; if (!c) return;
-    const ctx = c.getContext("2d"); let id, stars = [];
-    const resize = () => { c.width = c.offsetWidth * 2; c.height = c.offsetHeight * 2; stars = Array.from({ length: 80 }, () => ({ x: Math.random() * c.width, y: Math.random() * c.height, r: Math.random() * 1.2 + 0.3, sp: Math.random() * 0.25 + 0.05, a: Math.random() * 0.4 + 0.2, p: Math.random() * 6.28 })); };
-    resize(); window.addEventListener("resize", resize);
-    const draw = t => { ctx.clearRect(0, 0, c.width, c.height); stars.forEach(s => { ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 6.28); ctx.fillStyle = `rgba(200,180,255,${Math.max(0, s.a + Math.sin(t * 0.001 + s.p) * 0.1)})`; ctx.fill(); s.y -= s.sp; if (s.y < -5) { s.y = c.height + 5; s.x = Math.random() * c.width; } }); id = requestAnimationFrame(draw); };
-    id = requestAnimationFrame(draw);
-    return () => { cancelAnimationFrame(id); window.removeEventListener("resize", resize); };
-  }, []);
-  return <canvas ref={ref} style={{ position: "fixed", inset: 0, width: "100%", height: "100%", zIndex: 0, pointerEvents: "none" }} />;
-}
-
-function G({ children, style, glow, onClick, accent }) {
-  return <div onClick={onClick} style={{ background: "rgba(18,10,32,0.65)", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", border: `1px solid ${accent || "rgba(160,120,255,0.15)"}`, borderRadius: 16, padding: 24, boxShadow: glow ? "0 0 30px rgba(160,100,255,0.12), inset 0 1px 0 rgba(255,255,255,0.04)" : "0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04)", cursor: onClick ? "pointer" : "default", transition: "all 0.2s", ...style }}>{children}</div>;
+function G({ children, style, glow, onClick, accent, ...rest }) {
+  return <div onClick={onClick} style={{ background: "rgba(18,10,32,0.65)", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", border: `1px solid ${accent || "rgba(160,120,255,0.15)"}`, borderRadius: 16, padding: 24, boxShadow: glow ? "0 0 30px rgba(160,100,255,0.12), inset 0 1px 0 rgba(255,255,255,0.04)" : "0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04)", cursor: onClick ? "pointer" : "default", transition: "all 0.2s", ...style }} {...rest}>{children}</div>;
 }
 
 function ProgressBar({ pct, color = "#b47aff", h = 8 }) {
@@ -819,6 +806,7 @@ export default function GameCenter() {
   const [age, setAge] = useState(null);
   const [screen, setScreen] = useState("hub");
   const [scores, setScores] = useState({ responsibility: 0, budgeting: 0, saving: 0, investing: 0, quizzesCompleted: 0, gamesCompleted: 0, perfectRounds: 0, streak: 0 });
+  const tabsRef = useRef(null);
 
   const addScores = (newScores, isPerfect, isQuiz = true) => {
     setScores(prev => {
@@ -852,52 +840,73 @@ export default function GameCenter() {
 
   if (!age) {
     return (
-      <div style={{ minHeight: "100vh", background: "linear-gradient(160deg, #0a0514 0%, #110a24 40%, #0d0820 100%)", color: "#fff", fontFamily: "'Inter','SF Pro Display',-apple-system,sans-serif", position: "relative", overflow: "hidden" }}>
+      <div className="page-bg pos-relative overflow-hidden">
         <Starfield />
-        <div style={{ position: "relative", zIndex: 1, maxWidth: 900, margin: "0 auto", padding: "32px 16px 64px" }}>
-          <div style={{ textAlign: "center", marginBottom: 32 }}>
-            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, color: "#b47aff", textTransform: "uppercase", marginBottom: 8 }}>Club FLE</div>
-            <h1 style={{ fontSize: 30, fontWeight: 800, margin: "0 0 6px", background: "linear-gradient(135deg, #e0c3ff, #f59e0b, #fbbf24)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Financial Literacy Game Center</h1>
-            <p style={{ fontSize: 14, color: "rgba(255,255,255,0.45)", margin: 0, maxWidth: 460, marginInline: "auto", lineHeight: 1.6 }}>Learn money skills through games, quizzes, and real-world challenges. Pick your age group to begin.</p>
+        <main className="container-medium pos-relative z-1">
+          <div className="page-header">
+            <div className="page-header-label" aria-hidden="true">Club FLE</div>
+            <h1 className="page-header-title">Financial Literacy Game Center</h1>
+            <p className="page-header-desc">Learn money skills through games, quizzes, and real-world challenges. Pick your age group to begin.</p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }} role="list" aria-label="Choose your age group">
             {Object.entries(AGE_GROUPS).map(([key, g]) => (
-              <G key={key} onClick={() => setAge(key)} style={{ textAlign: "center", cursor: "pointer", padding: 28 }} accent={`${g.color}33`}>
-                <div style={{ fontSize: 48, marginBottom: 12 }}>{g.icon}</div>
-                <div style={{ fontSize: 18, fontWeight: 800, color: g.color, marginBottom: 4 }}>{g.label}</div>
-                <div style={{ fontSize: 13, color: "rgba(255,255,255,0.45)" }}>{g.desc}</div>
+              <G key={key} style={{ textAlign: "center", padding: 28 }} accent={`${g.color}33`} role="listitem">
+                <button
+                  onClick={() => setAge(key)}
+                  style={{ background: "none", border: "none", cursor: "pointer", width: "100%", color: "inherit", padding: 0 }}
+                  aria-label={`Start as ${g.label}: ${g.desc}`}
+                >
+                  <div style={{ fontSize: 48, marginBottom: 12 }} aria-hidden="true">{g.icon}</div>
+                  <div style={{ fontSize: 18, fontWeight: 800, color: g.color, marginBottom: 4 }}>{g.label}</div>
+                  <div style={{ fontSize: 13, color: "rgba(255,255,255,0.45)" }}>{g.desc}</div>
+                </button>
               </G>
             ))}
           </div>
-          <div style={{ textAlign: "center", marginTop: 48, paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+          <footer style={{ textAlign: "center", marginTop: 48, paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
             <div style={{ fontSize: 10, letterSpacing: 2, color: "rgba(255,255,255,0.2)", textTransform: "uppercase" }}>Club FLE · Financial Literacy Extraordinaire</div>
-          </div>
-        </div>
+          </footer>
+        </main>
       </div>
     );
   }
 
+  const gameTabs = [
+    { id: "hub", label: "Activities" },
+    { id: "scores", label: "My Scores" },
+  ];
+  const handleTabKey = (e) => {
+    const idx = gameTabs.findIndex((t) => t.id === screen);
+    let next;
+    if (e.key === "ArrowRight") { e.preventDefault(); next = gameTabs[(idx + 1) % gameTabs.length].id; }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); next = gameTabs[(idx - 1 + gameTabs.length) % gameTabs.length].id; }
+    if (next) {
+      setScreen(next);
+      tabsRef.current?.querySelector(`[data-tab="${next}"]`)?.focus();
+    }
+  };
+
   return (
-    <div style={{ minHeight: "100vh", background: "linear-gradient(160deg, #0a0514 0%, #110a24 40%, #0d0820 100%)", color: "#fff", fontFamily: "'Inter','SF Pro Display',-apple-system,sans-serif", position: "relative", overflow: "hidden" }}>
+    <div className="page-bg pos-relative overflow-hidden">
       <Starfield />
-      <div style={{ position: "relative", zIndex: 1, maxWidth: 900, margin: "0 auto", padding: "32px 16px 64px" }}>
+      <main className="container-medium pos-relative z-1">
 
         {/* HEADER */}
         <div style={{ textAlign: "center", marginBottom: 8 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, color: "#b47aff", textTransform: "uppercase", marginBottom: 8 }}>Club FLE</div>
-          <h1 style={{ fontSize: 28, fontWeight: 800, margin: "0 0 6px", background: "linear-gradient(135deg, #e0c3ff, #f59e0b, #fbbf24)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Game Center</h1>
+          <div className="page-header-label" aria-hidden="true">Club FLE</div>
+          <h1 className="page-header-title" style={{ fontSize: 28 }}>Game Center</h1>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginTop: 8 }}>
-            <span style={{ fontSize: 18 }}>{ageData.icon}</span>
+            <span style={{ fontSize: 18 }} aria-hidden="true">{ageData.icon}</span>
             <span style={{ fontSize: 14, fontWeight: 700, color: ageColor }}>{ageData.label}</span>
-            <button onClick={() => { setAge(null); setScreen("hub"); }} style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}>Change</button>
+            <button onClick={() => { setAge(null); setScreen("hub"); }} style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}>Change age group</button>
           </div>
         </div>
 
         {/* QUICK STATS */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10, margin: "20px 0" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10, margin: "20px 0" }} aria-label="Skill scores">
           {SKILL_AREAS.map(s => (
             <G key={s.key} style={{ padding: 12, textAlign: "center" }}>
-              <div style={{ fontSize: 14 }}>{s.icon}</div>
+              <div style={{ fontSize: 14 }} aria-hidden="true">{s.icon}</div>
               <div style={{ fontSize: 16, fontWeight: 800, color: s.color }}>{scores[s.key] || 0}</div>
               <div style={{ fontSize: 9, color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: 0.5 }}>{s.label}</div>
             </G>
@@ -905,37 +914,51 @@ export default function GameCenter() {
         </div>
 
         {/* NAV TABS */}
-        <div style={{ display: "flex", gap: 3, marginBottom: 20, background: "rgba(255,255,255,0.03)", borderRadius: 12, padding: 3 }}>
-          {[
-            { id: "hub", label: "Activities" },
-            { id: "scores", label: "My Scores" },
-          ].map(t => (
-            <button key={t.id} onClick={() => setScreen(t.id)} style={{
-              flex: 1, padding: "10px 8px", borderRadius: 10, border: "none", cursor: "pointer", fontSize: 12, fontWeight: 600, transition: "all 0.2s",
-              background: screen === t.id ? "rgba(180,122,255,0.2)" : "transparent",
-              color: screen === t.id ? "#d4b4ff" : "rgba(255,255,255,0.4)",
-            }}>{t.label}</button>
+        <div className="tab-bar mb-20" role="tablist" aria-label="Game Center sections" ref={tabsRef} onKeyDown={handleTabKey} style={{ padding: 0, maxWidth: "none", margin: 0 }}>
+          {gameTabs.map(t => (
+            <button
+              key={t.id}
+              data-tab={t.id}
+              role="tab"
+              aria-selected={screen === t.id}
+              aria-controls={`game-panel-${t.id}`}
+              id={`game-tab-${t.id}`}
+              tabIndex={screen === t.id ? 0 : -1}
+              onClick={() => setScreen(t.id)}
+              className={`tab-item${screen === t.id ? " tab-item-active" : ""}`}
+              style={{ flex: 1, justifyContent: "center" }}
+            >
+              {t.label}
+            </button>
           ))}
         </div>
 
         {/* HUB */}
         {screen === "hub" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <div id="game-panel-hub" role="tabpanel" aria-labelledby="game-tab-hub" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             <G style={{ borderLeft: `3px solid ${ageColor}` }}>
               <p style={{ margin: 0, fontSize: 13, color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
                 Choose an activity below. Each one tests different money skills and adds to your overall score. The more you play, the higher your rank.
               </p>
             </G>
-            {activities.map(a => (
-              <G key={a.id} onClick={() => setScreen(a.id)} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 16, padding: 20 }} accent={`${a.color}22`}>
-                <div style={{ width: 50, height: 50, borderRadius: 14, background: `${a.color}15`, border: `1px solid ${a.color}33`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, flexShrink: 0 }}>{a.icon}</div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 15, fontWeight: 700, color: "rgba(255,255,255,0.9)" }}>{a.name}</div>
-                  <div style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", marginTop: 2 }}>{a.desc}</div>
-                </div>
-                <div style={{ color: "rgba(255,255,255,0.15)", fontSize: 18 }}>→</div>
-              </G>
-            ))}
+            <div role="list" aria-label="Activities" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {activities.map(a => (
+                <G key={a.id} role="listitem" style={{ padding: 0 }} accent={`${a.color}22`}>
+                  <button
+                    onClick={() => setScreen(a.id)}
+                    style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 16, padding: 20, width: "100%", background: "none", border: "none", color: "inherit", textAlign: "left" }}
+                    aria-label={`${a.name}: ${a.desc}`}
+                  >
+                    <div style={{ width: 50, height: 50, borderRadius: 14, background: `${a.color}15`, border: `1px solid ${a.color}33`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, flexShrink: 0 }} aria-hidden="true">{a.icon}</div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 15, fontWeight: 700, color: "rgba(255,255,255,0.9)" }}>{a.name}</div>
+                      <div style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", marginTop: 2 }}>{a.desc}</div>
+                    </div>
+                    <div style={{ color: "rgba(255,255,255,0.15)", fontSize: 18 }} aria-hidden="true">→</div>
+                  </button>
+                </G>
+              ))}
+            </div>
           </div>
         )}
 
@@ -945,18 +968,18 @@ export default function GameCenter() {
         {screen === "sort" && <SortingScreen data={sortData} onComplete={(s, p) => addScores(s, p, false)} ageColor={ageColor} />}
         {screen === "timed" && <TimedScreen questions={timedQs} onComplete={(s, p) => addScores(s, p, false)} ageColor={ageColor} />}
         {screen === "match" && <MatchingScreen pairs={matchPairs} onComplete={(s, p) => addScores(s, p, false)} ageColor={ageColor} />}
-        {screen === "scores" && <ScoreDashboard scores={scores} age={age} />}
+        {screen === "scores" && <div id="game-panel-scores" role="tabpanel" aria-labelledby="game-tab-scores"><ScoreDashboard scores={scores} age={age} /></div>}
 
         {/* BACK BUTTON */}
         {screen !== "hub" && screen !== "scores" && (
-          <button onClick={() => setScreen("hub")} style={{ display: "block", margin: "20px auto 0", padding: "10px 24px", borderRadius: 10, border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.03)", color: "rgba(255,255,255,0.4)", fontSize: 12, fontWeight: 600, cursor: "pointer" }}>← Back to Activities</button>
+          <button onClick={() => setScreen("hub")} className="btn-ghost" style={{ display: "block", margin: "20px auto 0" }}>← Back to Activities</button>
         )}
 
         {/* FOOTER */}
-        <div style={{ textAlign: "center", marginTop: 48, paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+        <footer style={{ textAlign: "center", marginTop: 48, paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
           <div style={{ fontSize: 10, letterSpacing: 2, color: "rgba(255,255,255,0.2)", textTransform: "uppercase" }}>Club FLE · Financial Literacy Extraordinaire</div>
-        </div>
-      </div>
+        </footer>
+      </main>
     </div>
   );
 }

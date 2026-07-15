@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from "react";
+import Starfield from "./Starfield.jsx";
 
 // ─── MOCK DATA ───
 const EXISTING_GOALS = [
@@ -36,43 +37,6 @@ const COMPLETED_GOALS = [
   { label: "Stay under $250/week for a month", completed: "May 30", type: "budget" },
   { label: "Earn $3,000 in one month", completed: "Apr 30", type: "income" },
 ];
-
-// ─── STARFIELD ───
-function Starfield() {
-  const canvasRef = useRef(null);
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    let animId;
-    let stars = [];
-    const resize = () => {
-      canvas.width = canvas.offsetWidth * 2;
-      canvas.height = canvas.offsetHeight * 2;
-      stars = Array.from({ length: 100 }, () => ({
-        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
-        r: Math.random() * 1.5 + 0.3, speed: Math.random() * 0.3 + 0.08,
-        alpha: Math.random() * 0.5 + 0.2, pulse: Math.random() * Math.PI * 2,
-      }));
-    };
-    resize();
-    window.addEventListener("resize", resize);
-    const draw = (t) => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      stars.forEach((s) => {
-        const a = s.alpha + Math.sin(t * 0.001 + s.pulse) * 0.12;
-        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(200, 180, 255, ${Math.max(0, a)})`; ctx.fill();
-        s.y -= s.speed;
-        if (s.y < -5) { s.y = canvas.height + 5; s.x = Math.random() * canvas.width; }
-      });
-      animId = requestAnimationFrame(draw);
-    };
-    animId = requestAnimationFrame(draw);
-    return () => { cancelAnimationFrame(animId); window.removeEventListener("resize", resize); };
-  }, []);
-  return <canvas ref={canvasRef} style={{ position: "fixed", inset: 0, width: "100%", height: "100%", zIndex: 0, pointerEvents: "none" }} />;
-}
 
 // ─── GLASS CARD ───
 function Glass({ children, style, glow, onClick, accent }) {
@@ -385,66 +349,88 @@ export default function GoalsAndRewards() {
 
   const earnedCount = BADGES.filter(b => b.earned).length;
 
+  const garTabs = [
+    { id: "goals", label: "My Goals" },
+    { id: "rewards", label: "Rewards" },
+    { id: "compound", label: "Grow Capital" },
+  ];
+  const garTabRef = useRef(null);
+  const handleGarTabKey = (e) => {
+    const idx = garTabs.findIndex((t) => t.id === tab);
+    let next;
+    if (e.key === "ArrowRight") { e.preventDefault(); next = garTabs[(idx + 1) % garTabs.length].id; }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); next = garTabs[(idx - 1 + garTabs.length) % garTabs.length].id; }
+    if (next) {
+      setTab(next);
+      garTabRef.current?.querySelector(`[data-tab="${next}"]`)?.focus();
+    }
+  };
+
   return (
-    <div style={{
-      minHeight: "100vh",
-      background: "linear-gradient(160deg, #0a0514 0%, #110a24 40%, #0d0820 100%)",
-      color: "#fff",
-      fontFamily: "'Inter', 'SF Pro Display', -apple-system, sans-serif",
-      position: "relative", overflow: "hidden",
-    }}>
+    <div className="page-bg pos-relative overflow-hidden">
       <Starfield />
 
-      <div style={{ position: "relative", zIndex: 1, maxWidth: 900, margin: "0 auto", padding: "32px 16px 64px" }}>
+      <main className="container-medium pos-relative z-1">
 
         {/* ═══ HEADER ═══ */}
-        <div style={{ textAlign: "center", marginBottom: 10 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, color: "#b47aff", textTransform: "uppercase", marginBottom: 8 }}>Club FLE</div>
-          <h1 style={{ fontSize: 30, fontWeight: 800, margin: "0 0 6px", background: "linear-gradient(135deg, #e0c3ff, #f59e0b, #fbbf24)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+        <div className="page-header" style={{ marginBottom: 10 }}>
+          <div className="page-header-label" aria-hidden="true">Club FLE</div>
+          <h1 className="page-header-title">
             Goals & Rewards
           </h1>
           <p style={{ fontSize: 15, color: "rgba(255,255,255,0.5)", margin: "0 0 4px", maxWidth: 460, marginInline: "auto", lineHeight: 1.6 }}>
             Progress that feels good
           </p>
-          <p style={{ fontSize: 13, color: "rgba(255,255,255,0.3)", margin: 0, maxWidth: 440, marginInline: "auto", lineHeight: 1.6 }}>
+          <p className="page-header-desc" style={{ fontSize: 13, maxWidth: 440 }}>
             Set goals for your budget, income, and investments, then watch your progress build one step at a time.
           </p>
         </div>
 
         {/* ═══ QUICK STATS ═══ */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12, margin: "24px 0" }}>
+        <div className="stat-grid-3" style={{ margin: "24px 0" }}>
           {[
             { label: "Active Goals", value: EXISTING_GOALS.length, color: "#b47aff", sub: `${COMPLETED_GOALS.length} completed` },
             { label: "Best Streak", value: "5 wks", color: "#f59e0b", sub: "savings consistency" },
             { label: "Badges Earned", value: `${earnedCount}/${BADGES.length}`, color: "#4ade80", sub: "keep going" },
           ].map(s => (
-            <Glass key={s.label} style={{ padding: 16, textAlign: "center" }}>
-              <div style={{ fontSize: 10, color: "rgba(255,255,255,0.4)", fontWeight: 600, letterSpacing: 1, textTransform: "uppercase", marginBottom: 6 }}>{s.label}</div>
-              <div style={{ fontSize: 22, fontWeight: 800, color: s.color }}>{s.value}</div>
-              <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", marginTop: 2 }}>{s.sub}</div>
-            </Glass>
+            <div key={s.label} className="stat-card">
+              <div className="stat-card-label">{s.label}</div>
+              <div className="stat-card-value" style={{ color: s.color }}>{s.value}</div>
+              <div className="stat-card-sub">{s.sub}</div>
+            </div>
           ))}
         </div>
 
         {/* ═══ TAB NAV ═══ */}
-        <div style={{ display: "flex", gap: 4, marginBottom: 20, background: "rgba(255,255,255,0.03)", borderRadius: 12, padding: 4 }}>
-          {[
-            { id: "goals", label: "My Goals" },
-            { id: "rewards", label: "Rewards" },
-            { id: "compound", label: "Grow Capital" },
-          ].map(t => (
-            <button key={t.id} onClick={() => setTab(t.id)} style={{
-              flex: 1, padding: "10px 8px", borderRadius: 10, border: "none", cursor: "pointer", fontSize: 12, fontWeight: 600, transition: "all 0.2s",
-              background: tab === t.id ? "rgba(180, 122, 255, 0.2)" : "transparent",
-              color: tab === t.id ? "#d4b4ff" : "rgba(255,255,255,0.4)",
-              boxShadow: tab === t.id ? "0 0 12px rgba(180, 122, 255, 0.1)" : "none",
-            }}>{t.label}</button>
+        <div
+          className="tab-bar mb-20"
+          role="tablist"
+          aria-label="Goals and Rewards sections"
+          ref={garTabRef}
+          onKeyDown={handleGarTabKey}
+          style={{ padding: 4, maxWidth: "none", margin: "0 0 20px" }}
+        >
+          {garTabs.map(t => (
+            <button
+              key={t.id}
+              data-tab={t.id}
+              role="tab"
+              aria-selected={tab === t.id}
+              aria-controls={`gar-panel-${t.id}`}
+              id={`gar-tab-${t.id}`}
+              tabIndex={tab === t.id ? 0 : -1}
+              onClick={() => setTab(t.id)}
+              className={`tab-item${tab === t.id ? " tab-item-active" : ""}`}
+              style={{ flex: 1, justifyContent: "center" }}
+            >
+              {t.label}
+            </button>
           ))}
         </div>
 
         {/* ═══ GOALS TAB ═══ */}
         {tab === "goals" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <div id="gar-panel-goals" role="tabpanel" aria-labelledby="gar-tab-goals" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             {/* Intro */}
             <Glass style={{ borderLeft: "3px solid #b47aff" }}>
               <p style={{ margin: 0, fontSize: 13, color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
@@ -508,7 +494,7 @@ export default function GoalsAndRewards() {
 
         {/* ═══ REWARDS TAB ═══ */}
         {tab === "rewards" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <div id="gar-panel-rewards" role="tabpanel" aria-labelledby="gar-tab-rewards" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <Glass style={{ borderLeft: "3px solid #f59e0b" }}>
               <p style={{ margin: 0, fontSize: 13, color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
                 Celebrate the goals you complete and the habits that got you there. Badges and streaks remain visible even after missed days — your wins are never erased.
@@ -575,7 +561,7 @@ export default function GoalsAndRewards() {
 
         {/* ═══ COMPOUND TAB ═══ */}
         {tab === "compound" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <div id="gar-panel-compound" role="tabpanel" aria-labelledby="gar-tab-compound" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <Glass style={{ borderLeft: "3px solid #f59e0b" }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#fbbf24", marginBottom: 6 }}>Grow your capital</div>
               <p style={{ margin: 0, fontSize: 13, color: "rgba(255,255,255,0.55)", lineHeight: 1.7 }}>
@@ -628,12 +614,12 @@ export default function GoalsAndRewards() {
         )}
 
         {/* ═══ FOOTER ═══ */}
-        <div style={{ textAlign: "center", marginTop: 48, paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+        <footer style={{ textAlign: "center", marginTop: 48, paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
           <div style={{ fontSize: 10, letterSpacing: 2, color: "rgba(255,255,255,0.2)", textTransform: "uppercase" }}>
             Club FLE · Financial Literacy Extraordinaire
           </div>
-        </div>
-      </div>
+        </footer>
+      </main>
     </div>
   );
 }
