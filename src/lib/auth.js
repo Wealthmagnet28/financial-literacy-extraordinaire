@@ -36,9 +36,29 @@ export async function getSession() {
 export async function getProfile(userId) {
   const { data, error } = await supabase
     .from('profiles')
-    .select('id, display_name, age_tier, avatar_url')
+    .select(
+      'id, display_name, age_tier, avatar_url, date_of_birth, notify_weekly_summary, notify_budget_alerts, notify_goal_reminders'
+    )
     .eq('id', userId)
     .single();
   if (error) return null;
   return data;
+}
+
+export async function updateProfile(userId, fields) {
+  return supabase.from('profiles').update(fields).eq('id', userId);
+}
+
+export async function uploadAvatar(userId, file) {
+  const ext = file.name.split('.').pop();
+  const path = `${userId}/${Date.now()}.${ext}`;
+
+  const { error: uploadError } = await supabase.storage
+    .from('avatars')
+    .upload(path, file, { upsert: true });
+
+  if (uploadError) return { url: null, error: uploadError };
+
+  const { data } = supabase.storage.from('avatars').getPublicUrl(path);
+  return { url: data.publicUrl, error: null };
 }

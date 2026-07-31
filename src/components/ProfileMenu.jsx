@@ -157,6 +157,32 @@ export default function ProfileMenu() {
               {tierLabel}
             </span>
           )}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', marginBottom: '10px' }}>
+            <a
+              href="/profile"
+              style={{
+                padding: '8px 4px',
+                fontSize: '0.85rem',
+                fontWeight: 600,
+                color: 'rgba(255,255,255,0.8)',
+                textDecoration: 'none',
+              }}
+            >
+              Profile
+            </a>
+            <a
+              href="/settings"
+              style={{
+                padding: '8px 4px',
+                fontSize: '0.85rem',
+                fontWeight: 600,
+                color: 'rgba(255,255,255,0.8)',
+                textDecoration: 'none',
+              }}
+            >
+              Settings
+            </a>
+          </div>
           <button
             onClick={handleLogout}
             style={{

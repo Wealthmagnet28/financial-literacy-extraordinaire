@@ -143,3 +143,28 @@ create policy "investments_update_own" on investments for update using (user_id 
 -- account_access_logs: insert for any authenticated user, select if you're the owner or the accessor
 create policy "access_logs_insert_auth" on account_access_logs for insert with check (auth.uid() is not null);
 create policy "access_logs_select_own" on account_access_logs for select using (user_id = auth.uid() or accessed_by = auth.uid());
+
+-- ═══════════════════════════════════════════
+-- AUTO-CREATE users ROW ON SIGN-UP
+-- budgets/transactions/goals/etc. all have a foreign key to users(id), so a
+-- row must exist here before any of those inserts can succeed.
+-- ═══════════════════════════════════════════
+
+create or replace function public.handle_new_budget_user()
+returns trigger as $$
+begin
+  insert into public.users (id, email, display_name)
+  values (
+    new.id,
+    new.email,
+    coalesce(new.raw_user_meta_data->>'display_name', split_part(new.email, '@', 1))
+  )
+  on conflict (id) do nothing;
+  return new;
+end;
+$$ language plpgsql security definer set search_path = public;
+
+create trigger on_auth_user_created_budget
+  after insert on auth.users
+  for each row
+  execute function public.handle_new_budget_user();
