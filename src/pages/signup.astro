@@ -1,6 +1,5 @@
 ---
-import AIMoneyCoach from '../components/AIMoneyCoach.jsx';
-import ProfileMenu from '../components/ProfileMenu.jsx';
+import SignupForm from '../components/SignupForm.jsx';
 ---
 
 <html lang="en">
@@ -9,8 +8,8 @@ import ProfileMenu from '../components/ProfileMenu.jsx';
 	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="generator" content={Astro.generator} />
-	<meta name="description" content="Club FLE AI Money Coach — your personal guide for smarter spending and better money habits." />
-	<title>AI Money Coach — Club FLE</title>
+	<meta name="description" content="Sign up for Club FLE — the all-in-one financial literacy platform." />
+	<title>Sign Up — Club FLE</title>
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 </head>
 <body>
@@ -31,12 +30,11 @@ import ProfileMenu from '../components/ProfileMenu.jsx';
 			<a href="/#features">Features</a>
 			<a href="/budget-tracker">Budget Tracker</a>
 			<a href="/parent-dashboard">Parent Dashboard</a>
-			<a href="/ai-money-coach" class="active">AI Coach</a>
+			<a href="/ai-money-coach">AI Coach</a>
 			<a href="/goals-and-rewards">Goals</a>
 			<a href="/business-simulator">Simulator</a>
 			<a href="/wealth-newsfeed">Newsfeed</a>
 			<a href="/game-center">Games</a>
-			<ProfileMenu client:load />
 		</div>
 		<button class="burger" id="burger" aria-label="Menu">
 			<span></span><span></span><span></span>
@@ -45,9 +43,9 @@ import ProfileMenu from '../components/ProfileMenu.jsx';
 </nav>
 
 <!-- MAIN -->
-<main class="coach-main" id="protectedMain" style="visibility:hidden">
+<main class="auth-main">
 	<div class="container">
-		<AIMoneyCoach client:load />
+		<SignupForm client:load />
 	</div>
 </main>
 
@@ -64,11 +62,6 @@ import ProfileMenu from '../components/ProfileMenu.jsx';
 		<p class="footer-tagline">Club FLE — Master Your Money. Build Your Future.</p>
 	</div>
 </footer>
-
-<script type="module">
-	import { requireAuth } from '../lib/authGuard';
-	requireAuth();
-</script>
 
 <script>
 	document.getElementById('burger')?.addEventListener('click', () => {
@@ -101,12 +94,11 @@ a{text-decoration:none;color:inherit}
 .nav-links{display:flex;align-items:center;gap:28px;font-size:.9rem;font-weight:500}
 .nav-links a{color:rgba(255,255,255,.6);transition:color .25s}
 .nav-links a:hover,.nav-links a.active{color:#fff}
-.nav-btn{background:linear-gradient(135deg,var(--purple),var(--orange));color:#fff!important;padding:10px 24px;border-radius:10px;font-weight:700;transition:transform .3s,box-shadow .3s;box-shadow:0 0 18px rgba(123,47,242,.3)}
-.nav-btn:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 0 30px rgba(123,47,242,.5)}
 .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:201}
 .burger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px}
 
-.coach-main{position:relative;z-index:1;padding:88px 0 40px;min-height:80vh}
+.auth-main{position:relative;z-index:1;padding:140px 0 80px;min-height:100vh;display:flex;align-items:center}
+.auth-main .container{width:100%}
 
 .footer{position:relative;z-index:1;padding:48px 0;background:var(--bg);border-top:1px solid rgba(123,47,242,.08);text-align:center}
 .footer-copy{font-size:.85rem;color:rgba(255,255,255,.3);margin-bottom:16px}

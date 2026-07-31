@@ -1,5 +1,5 @@
 ---
-
+import ProfileMenu from '../components/ProfileMenu.jsx';
 ---
 
 <html lang="en">
@@ -39,7 +39,7 @@
 			<a href="/business-simulator">Simulator</a>
 			<a href="/wealth-newsfeed">Newsfeed</a>
 			<a href="/game-center">Games</a>
-			<a href="/#cta" class="nav-btn">Get Started</a>
+			<ProfileMenu client:load />
 		</div>
 		<button class="burger" id="burger" aria-label="Menu">
 			<span></span><span></span><span></span>

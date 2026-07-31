@@ -1,4 +1,6 @@
 ---
+import ProfileMenu from '../components/ProfileMenu.jsx';
+
 // ── MOCK DATA (matches the BudgetSummary / FinancialGoal / Transaction /
 //    Alert / AccountAccess / InvestmentHolding shapes from the spec) ──
 
@@ -154,6 +156,7 @@ const toneAccent: Record<string, string> = {
 			<a href="/#features">Features</a>
 			<a href="/budget-tracker" class="active">Budget Tracker</a>
 			<a href="/#faq">Contact</a>
+			<ProfileMenu client:load />
 		</div>
 		<button class="burger" id="burger" aria-label="Menu">
 			<span></span><span></span><span></span>
@@ -161,7 +164,7 @@ const toneAccent: Record<string, string> = {
 	</div>
 </nav>
 
-<main class="page">
+<main class="page" id="protectedMain" style="visibility:hidden">
 	<div class="container">
 
 		<!-- PAGE HEADER -->
@@ -368,6 +371,11 @@ const toneAccent: Record<string, string> = {
 		<p class="footer-tagline">Club FLE — Master Your Money. Build Your Future.</p>
 	</div>
 </footer>
+
+<script type="module">
+	import { requireAuth } from '../lib/authGuard';
+	requireAuth();
+</script>
 
 <script>
 	const io = new IntersectionObserver((entries) => {

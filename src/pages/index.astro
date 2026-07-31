@@ -1,6 +1,6 @@
 ---
 import EmailCapture from '../components/EmailCapture.jsx';
-
+import ProfileMenu from '../components/ProfileMenu.jsx';
 ---
 
 <html lang="en">
@@ -55,7 +55,7 @@ import EmailCapture from '../components/EmailCapture.jsx';
 					<a href="/wealth-newsfeed">Newsfeed</a>
 					<a href="/game-center">Games</a>
 					<a href="#faq">Contact</a>
-					<a href="#cta" class="nav-btn">Get Started</a>
+					<ProfileMenu client:load />
 				</div>
 				<button class="burger" id="burger" aria-label="Menu">
 					<span></span><span></span><span></span>

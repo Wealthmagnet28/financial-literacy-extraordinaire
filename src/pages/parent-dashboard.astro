@@ -1,5 +1,6 @@
 ---
 import ParentDashboard from '../components/ParentDashboard.jsx';
+import ProfileMenu from '../components/ProfileMenu.jsx';
 ---
 
 <html lang="en">
@@ -39,7 +40,7 @@ import ParentDashboard from '../components/ParentDashboard.jsx';
 			<a href="/business-simulator">Simulator</a>
 			<a href="/wealth-newsfeed">Newsfeed</a>
 			<a href="/game-center">Games</a>
-			<a href="/#cta" class="nav-btn">Get Started</a>
+			<ProfileMenu client:load />
 		</div>
 		<button class="burger" id="burger" aria-label="Menu">
 			<span></span><span></span><span></span>
@@ -48,7 +49,7 @@ import ParentDashboard from '../components/ParentDashboard.jsx';
 </nav>
 
 <!-- MAIN CONTENT -->
-<main class="dash-main">
+<main class="dash-main" id="protectedMain" style="visibility:hidden">
 	<div class="container">
 		<ParentDashboard client:load />
 	</div>
@@ -67,6 +68,11 @@ import ParentDashboard from '../components/ParentDashboard.jsx';
 		<p class="footer-tagline">Club FLE — Master Your Money. Build Your Future.</p>
 	</div>
 </footer>
+
+<script type="module">
+	import { requireAuth } from '../lib/authGuard';
+	requireAuth();
+</script>
 
 <script>
 	document.getElementById('burger')?.addEventListener('click', () => {

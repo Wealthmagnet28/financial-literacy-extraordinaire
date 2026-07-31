@@ -1,5 +1,6 @@
 ---
 import GameCenter from '../components/GameCenter.jsx';
+import ProfileMenu from '../components/ProfileMenu.jsx';
 ---
 
 <html lang="en">
@@ -35,7 +36,7 @@ import GameCenter from '../components/GameCenter.jsx';
 			<a href="/business-simulator">Simulator</a>
 			<a href="/wealth-newsfeed">Newsfeed</a>
 			<a href="/game-center" class="active">Games</a>
-			<a href="/#cta" class="nav-btn">Get Started</a>
+			<ProfileMenu client:load />
 		</div>
 		<button class="burger" id="burger" aria-label="Menu">
 			<span></span><span></span><span></span>
@@ -44,7 +45,7 @@ import GameCenter from '../components/GameCenter.jsx';
 </nav>
 
 <!-- MAIN -->
-<main class="gc-main">
+<main class="gc-main" id="protectedMain" style="visibility:hidden">
 	<div class="container">
 		<GameCenter client:load />
 	</div>
@@ -63,6 +64,11 @@ import GameCenter from '../components/GameCenter.jsx';
 		<p class="footer-tagline">Club FLE — Master Your Money. Build Your Future.</p>
 	</div>
 </footer>
+
+<script type="module">
+	import { requireAuth } from '../lib/authGuard';
+	requireAuth();
+</script>
 
 <script>
 	document.getElementById('burger')?.addEventListener('click', () => {
